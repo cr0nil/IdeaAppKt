@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+                name="welcomeFragemnt"
+                type="com.karolapp.ideaappkt.WelcomeFragment"/>
+    </data>
+
+    <LinearLayout
+            android:id="@+id/welcomeFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000521"
+            android:gravity="center"
+            android:orientation="vertical"
+    >
+
+        <!-- TODO: Update blank fragment layout -->
+        <Button
+                android:background="@android:color/transparent"
+                android:id="@+id/createAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="80dp"
+                android:layout_marginBottom="15dp"
+                android:text="Create Account"
+                android:onClick="@{welcomeFragemnt.goCreateAccount}"
+                android:textColor="#fff" />
+
+        <Button
+                android:id="@+id/singIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="80dp"
+                android:onClick="@{(view) -> welcomeFragemnt.goToSingIn(view)}"
+                android:text="Sing in"
+                android:textColor="#fff" />
+
+    </LinearLayout>
+</layout>

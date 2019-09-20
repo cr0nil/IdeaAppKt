@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "349505146865",
+    "firebase_url": "https://ideaappkt.firebaseio.com",
+    "project_id": "ideaappkt",
+    "storage_bucket": "ideaappkt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349505146865:android:1087e087595e1ba0e8fe50",
+        "android_client_info": {
+          "package_name": "com.karolapp.ideaappkt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349505146865-lnvv5sov9ah6hb2u8atj4s1e0pvbakll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.karolapp.ideaappkt",
+            "certificate_hash": "3e5c7a015ba447ec43418216b0dbebf0d26d27c9"
+          }
+        },
+        {
+          "client_id": "349505146865-tv7c0ef4c0as4rr88df881tpirvgdm02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_6F4Kwx60eSjr7oYogovYSSTvHpC7aEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349505146865-tv7c0ef4c0as4rr88df881tpirvgdm02.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
