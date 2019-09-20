@@ -7,28 +7,23 @@ import com.karolapp.ideaappkt.presenter.interfaces.LoginPresenter
 import com.karolapp.ideaappkt.view.interfaces.LoginView
 
 
-class LoginPresenterImpl : LoginPresenter {
+class LoginPresenterImpl(loginView: LoginView) : LoginPresenter {
 
-    var loginView: LoginView? = null
-    private lateinit var mAuth: FirebaseAuth
-    val TAG: String = "Login"
+    private var loginView: LoginView? = loginView
+    private val tag: String = "Login"
 
-    constructor(loginView: LoginView) {
-        this.loginView = loginView
-    }
-
-    override fun handleLogin(name: String, password: String, activity: Activity) {
+    override fun handleLogin(name: String, password: String, activity: Activity?, mAuth: FirebaseAuth) {
         mAuth.signInWithEmailAndPassword(name, password)
             .addOnCompleteListener(Activity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     loginView!!.loginSuccess()
-                    Log.i(TAG, "signInWithEmail:success", task.exception)
+                    Log.i(tag, "signInWithEmail:success", task.exception)
                     // val user = mAuth.currentUser
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Log.w(tag, "signInWithEmail:failure", task.exception)
 
                 }
 

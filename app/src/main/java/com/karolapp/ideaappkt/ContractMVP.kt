@@ -1,7 +1,7 @@
 package com.karolapp.ideaappkt
 
 interface ContractMVP {
-    interface View{
+    interface View {
         fun show()
     }
 }

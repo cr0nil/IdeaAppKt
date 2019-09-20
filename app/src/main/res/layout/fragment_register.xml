@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".view.RegisterFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+        xmlns:bind="http://schemas.android.com/tools"
+
+>
+
+    <data>
+
+        <variable
+                name="registerFragment"
+                type="com.karolapp.ideaappkt.view.RegisterFragment"></variable>
+    </data>
+
+    <LinearLayout
+            android:id="@+id/registerFrag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:background="#000521"
+            android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+        <EditText
+                android:id="@+id/inEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="email"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textColorHint="#9e9e9e" />
+
+        <EditText
+                android:id="@+id/inPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="password"
+                android:textColor="#fff"
+                android:textColorHint="#9e9e9e" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:onClick="@{() -> registerFragment.createAccount()}"
+                android:text="Registry" />
+
+    </LinearLayout>
+</layout>

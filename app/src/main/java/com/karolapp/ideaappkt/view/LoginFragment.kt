@@ -1,5 +1,6 @@
 package com.karolapp.ideaappkt.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.karolapp.ideaappkt.MainActivity
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentLoginBinding
 import com.karolapp.ideaappkt.presenter.LoginPresenterImpl
@@ -14,12 +17,14 @@ import com.karolapp.ideaappkt.view.interfaces.LoginView
 
 
 class LoginFragment : Fragment(), LoginView {
-    lateinit var loginPresenterImpl: LoginPresenterImpl
-    lateinit var fragmentLoginBinding: FragmentLoginBinding
+    private lateinit var loginPresenterImpl: LoginPresenterImpl
+    private lateinit var fragmentLoginBinding: FragmentLoginBinding
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginPresenterImpl = LoginPresenterImpl(this)
+        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -27,8 +32,8 @@ class LoginFragment : Fragment(), LoginView {
         savedInstanceState: Bundle?
     ): View? {
         fragmentLoginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        fragmentLoginBinding.setLoginFragment(this)
-        return fragmentLoginBinding.getRoot()
+        fragmentLoginBinding.loginFragment = this
+        return fragmentLoginBinding.root
         // Inflate the layout for this fragment
 
     }
@@ -36,11 +41,18 @@ class LoginFragment : Fragment(), LoginView {
     override fun loginSuccess() {
         val toast = Toast.makeText(context, "success", Toast.LENGTH_SHORT)
         toast.show()
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
     }
 
     fun singIn() {
-        val toast = Toast.makeText(context, "success", Toast.LENGTH_SHORT)
-        toast.show()
+        loginPresenterImpl.handleLogin(
+            fragmentLoginBinding.inEmail.text.toString(),
+            fragmentLoginBinding.inPassword.text.toString(),
+            activity,
+            mAuth
+        )
+
     }
 
 }

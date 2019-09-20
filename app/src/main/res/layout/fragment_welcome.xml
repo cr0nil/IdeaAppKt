@@ -3,12 +3,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-                name="welcomeFragemnt"
+                name="welcome"
                 type="com.karolapp.ideaappkt.WelcomeFragment"/>
     </data>
 
     <LinearLayout
-            android:id="@+id/welcomeFragment"
+            android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#000521"
@@ -25,17 +25,17 @@
                 android:layout_marginHorizontal="80dp"
                 android:layout_marginBottom="15dp"
                 android:text="Create Account"
-                android:onClick="@{welcomeFragemnt.goCreateAccount}"
-                android:textColor="#fff" />
+                android:onClick="@{() -> welcome.goCreateAccount()}"
+                android:textColor="#fff"/>
 
         <Button
                 android:id="@+id/singIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="80dp"
-                android:onClick="@{(view) -> welcomeFragemnt.goToSingIn(view)}"
+                android:onClick="@{() -> welcome.goToSingIn()}"
                 android:text="Sing in"
-                android:textColor="#fff" />
+                android:textColor="#fff"/>
 
     </LinearLayout>
 </layout>
