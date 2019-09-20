@@ -1,45 +1,55 @@
 package com.karolapp.ideaappkt.view
 
-import android.content.Context
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.karolapp.ideaappkt.MainActivity
 import com.karolapp.ideaappkt.R
+import com.karolapp.ideaappkt.databinding.FragmentRegisterBinding
+import com.karolapp.ideaappkt.presenter.RegisterPreseterImpl
+import com.karolapp.ideaappkt.view.interfaces.AuthView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [RegisterFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
-class RegisterFragment : Fragment() {
+class RegisterFragment : Fragment(), AuthView {
 
+    private lateinit var registerPreseterImpl: RegisterPreseterImpl
+    private lateinit var registerBinding: FragmentRegisterBinding
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerPreseterImpl = RegisterPreseterImpl(this)
+        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        registerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
+        registerBinding.registerFragment = this
+        return registerBinding.root
     }
 
+    override fun loginSuccess() {
+        val toast = Toast.makeText(context, "success", Toast.LENGTH_SHORT)
+        toast.show()
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
+    }
 
-   fun createAccount(){
-
-   }
+    fun createAccount() {
+        registerPreseterImpl.handleLogin(
+            registerBinding.inEmail.text.toString(),
+            registerBinding.inPassword.text.toString(),
+            activity,
+            mAuth
+        )
+    }
 }

@@ -13,10 +13,10 @@ import com.karolapp.ideaappkt.MainActivity
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentLoginBinding
 import com.karolapp.ideaappkt.presenter.LoginPresenterImpl
-import com.karolapp.ideaappkt.view.interfaces.LoginView
+import com.karolapp.ideaappkt.view.interfaces.AuthView
 
 
-class LoginFragment : Fragment(), LoginView {
+class LoginFragment : Fragment(), AuthView {
     private lateinit var loginPresenterImpl: LoginPresenterImpl
     private lateinit var fragmentLoginBinding: FragmentLoginBinding
     private lateinit var mAuth: FirebaseAuth

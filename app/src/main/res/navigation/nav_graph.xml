@@ -4,7 +4,7 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
             app:startDestination="@id/welcome">
 
-    <fragment android:id="@+id/welcome" android:name="com.karolapp.ideaappkt.WelcomeFragment"
+    <fragment android:id="@+id/welcome" android:name="com.karolapp.ideaappkt.view.WelcomeFragment"
               android:label="fragment_welcome" tools:layout="@layout/fragment_welcome">
         <action android:id="@+id/action_welcomeFragment_to_loginFragment" app:destination="@id/loginFragment"/>
         <action android:id="@+id/action_welcomeFragment_to_registerFragment" app:destination="@id/registerFragment"/>

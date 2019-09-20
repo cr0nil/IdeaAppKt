@@ -3,13 +3,13 @@ package com.karolapp.ideaappkt.presenter
 import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.karolapp.ideaappkt.presenter.interfaces.LoginPresenter
-import com.karolapp.ideaappkt.view.interfaces.LoginView
+import com.karolapp.ideaappkt.presenter.interfaces.AuthPresenter
+import com.karolapp.ideaappkt.view.interfaces.AuthView
 
 
-class LoginPresenterImpl(loginView: LoginView) : LoginPresenter {
+class LoginPresenterImpl(authView: AuthView) : AuthPresenter {
 
-    private var loginView: LoginView? = loginView
+    private var loginView: AuthView? = authView
     private val tag: String = "Login"
 
     override fun handleLogin(name: String, password: String, activity: Activity?, mAuth: FirebaseAuth) {
