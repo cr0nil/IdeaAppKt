@@ -23,7 +23,7 @@ class WelcomeFragment : Fragment() {
     ): View? {
         fragmentWelcomeBinding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_welcome, container, false)
-        fragmentWelcomeBinding.setWelcome(this)
+        fragmentWelcomeBinding.welcome = this
 
         return fragmentWelcomeBinding.root
     }

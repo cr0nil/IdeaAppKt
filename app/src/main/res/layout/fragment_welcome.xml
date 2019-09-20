@@ -8,7 +8,7 @@
     </data>
 
     <LinearLayout
-            android:id="@+id/welcome"
+            android:id="@+id/welcomeFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#000521"
