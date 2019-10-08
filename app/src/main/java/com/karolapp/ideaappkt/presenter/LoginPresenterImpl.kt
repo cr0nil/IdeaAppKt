@@ -14,7 +14,8 @@ class LoginPresenterImpl(authView: AuthView) : AuthPresenter {
 
     override fun handleLogin(name: String, password: String, activity: Activity?, mAuth: FirebaseAuth) {
         mAuth.signInWithEmailAndPassword(name, password)
-            .addOnCompleteListener(Activity()) { task ->
+            .addOnCompleteListener { task ->
+
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     loginView!!.loginSuccess()
@@ -26,9 +27,8 @@ class LoginPresenterImpl(authView: AuthView) : AuthPresenter {
                     Log.w(tag, "signInWithEmail:failure", task.exception)
 
                 }
-
-                // ...
             }
-
+        // ...
     }
+
 }
