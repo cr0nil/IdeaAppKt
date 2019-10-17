@@ -8,19 +8,19 @@ class Rates {
     private var asset_id_base: String? = null
 
     @SerializedName("rates")
-    private var cryptocurrencyList: List<Cryptocurrency>? = null
+    private var cryptocurrencyList: ArrayList<Cryptocurrency>? = null
 
-    constructor(asset_id_base: String?, cryptocurrencyList: List<Cryptocurrency>?) {
+    constructor(asset_id_base: String?, cryptocurrencyList: ArrayList<Cryptocurrency>?) {
         this.asset_id_base = asset_id_base
         this.cryptocurrencyList = cryptocurrencyList
     }
 
 
-    fun getCryptocurrencyList(): List<Cryptocurrency>? {
+    fun getCryptocurrencyList(): ArrayList<Cryptocurrency>? {
         return cryptocurrencyList
     }
 
-    fun setCryptocurrencyList(cryptocurrencyList: List<Cryptocurrency>) {
+    fun setCryptocurrencyList(cryptocurrencyList: ArrayList<Cryptocurrency>) {
         this.cryptocurrencyList = cryptocurrencyList
     }
 

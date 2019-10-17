@@ -12,7 +12,7 @@ object ApiClient {
                 RxJava2CallAdapterFactory.create())
             .addConverterFactory(
                 GsonConverterFactory.create())
-            .baseUrl("https://en.wikipedia.org/w/")
+            .baseUrl("https://rest.coinapi.io/v1/")
             .build()
 
         return retrofit.create(ApiService::class.java)
