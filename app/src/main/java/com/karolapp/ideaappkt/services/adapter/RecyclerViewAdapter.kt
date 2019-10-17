@@ -38,13 +38,14 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<CurrencyHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return currency?.size ?: 0
+        return mArrayList?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: CurrencyHolder, position: Int) {
-        val cryptocurrency: Cryptocurrency = currency!!.get(position)
-        // holder.bind(cryptocurrency)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       // val cryptocurrency: Cryptocurrency = currency!!.get(position)
+
+        holder.bind(mArrayList!![position])
+
     }
 
 }
