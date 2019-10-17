@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IdeaAppKt.iml" filepath="$PROJECT_DIR$/IdeaAppKt.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iappkt.iml" filepath="$PROJECT_DIR$/iappkt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/iappkt-app.iml" filepath="$PROJECT_DIR$/app/iappkt-app.iml" />
     </modules>
   </component>
 </project>
