@@ -1,9 +1,9 @@
-package com.karolapp.ideaappkt.presenter
+package com.karolapp.ideaappkt.ui.view.presenter
 
 import android.app.Activity
 import com.google.firebase.auth.FirebaseAuth
-import com.karolapp.ideaappkt.presenter.interfaces.AuthPresenter
-import com.karolapp.ideaappkt.view.interfaces.AuthView
+import com.karolapp.ideaappkt.ui.view.presenter.interfaces.AuthPresenter
+import com.karolapp.ideaappkt.ui.view.interfaces.AuthView
 
 class RegisterPreseterImpl(authView: AuthView) : AuthPresenter {
     private var registerView: AuthView? = authView

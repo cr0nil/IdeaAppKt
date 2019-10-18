@@ -1,4 +1,4 @@
-package com.karolapp.ideaappkt
+package com.karolapp.ideaappkt.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

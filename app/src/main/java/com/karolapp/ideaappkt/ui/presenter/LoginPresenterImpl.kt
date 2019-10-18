@@ -1,10 +1,10 @@
-package com.karolapp.ideaappkt.presenter
+package com.karolapp.ideaappkt.ui.view.presenter
 
 import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.karolapp.ideaappkt.presenter.interfaces.AuthPresenter
-import com.karolapp.ideaappkt.view.interfaces.AuthView
+import com.karolapp.ideaappkt.ui.view.presenter.interfaces.AuthPresenter
+import com.karolapp.ideaappkt.ui.view.interfaces.AuthView
 
 
 class LoginPresenterImpl(authView: AuthView) : AuthPresenter {

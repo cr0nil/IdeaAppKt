@@ -1,4 +1,4 @@
-package com.karolapp.ideaappkt.view
+package com.karolapp.ideaappkt.ui.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.karolapp.ideaappkt.MainActivity
+import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentRegisterBinding
-import com.karolapp.ideaappkt.presenter.RegisterPreseterImpl
-import com.karolapp.ideaappkt.view.interfaces.AuthView
+import com.karolapp.ideaappkt.ui.view.presenter.RegisterPreseterImpl
+import com.karolapp.ideaappkt.ui.view.interfaces.AuthView
 
 
 class RegisterFragment : Fragment(), AuthView {

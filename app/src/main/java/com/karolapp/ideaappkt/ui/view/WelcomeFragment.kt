@@ -1,4 +1,4 @@
-package com.karolapp.ideaappkt.view
+package com.karolapp.ideaappkt.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

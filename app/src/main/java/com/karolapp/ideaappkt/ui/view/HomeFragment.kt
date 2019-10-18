@@ -1,4 +1,4 @@
-package com.karolapp.ideaappkt.view
+package com.karolapp.ideaappkt.ui.view
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
-import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.api.ApiClient
@@ -22,9 +21,6 @@ import com.karolapp.ideaappkt.services.api.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class HomeFragment : Fragment() {
@@ -62,33 +58,16 @@ class HomeFragment : Fragment() {
         return fragmentHomeBinding.root
     }
 
-    private fun getData(): ArrayList<Cryptocurrency> {
-        /// dane z giełdy
-        val list = ArrayList<Cryptocurrency>()
-        val list2 = ArrayList<Rates>()
+    private fun getData() {
 
-        Log.i(TAG, "onResponse: AFTER")
-        var x : String = "x"
-//        val call: Call<Rates> = service!!.getCryptocurrency()
-//        call.enqueue(object : Callback<Rates>{
-//            override fun onFailure(call: Call<Rates>, t: Throwable) {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//
-//            override fun onResponse(call: Call<Rates>, response: Response<Rates>) {
-//                x =response.toString()
-//                Log.i(TAG,x)
-//            }
-//        })
         service!!.getCryptocurrency()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                Consumer { t -> displayCurrency(t)
+                Consumer { t ->
+                    displayCurrency(t)
                 })
 
-
-        return list
 
     }
 

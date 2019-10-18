@@ -4,6 +4,6 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph2"
             app:startDestination="@id/homeFragment">
 
-    <fragment android:id="@+id/homeFragment" android:name="com.karolapp.ideaappkt.view.HomeFragment"
+    <fragment android:id="@+id/homeFragment" android:name="com.karolapp.ideaappkt.ui.view.HomeFragment"
               android:label="fragment_home" tools:layout="@layout/fragment_home"/>
 </navigation>
