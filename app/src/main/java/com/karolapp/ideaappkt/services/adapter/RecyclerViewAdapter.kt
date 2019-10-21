@@ -4,30 +4,27 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.services.holder.CurrencyHolder
 
 
-
-
-class RecyclerViewAdapter() : RecyclerView.Adapter<CurrencyHolder>() {
-    private var mContext: Context? = null
-    private var mArrayList: ArrayList<Cryptocurrency>? = null
+class RecyclerViewAdapter(
+    private val mContext: Context,
+    private val mArrayList: ArrayList<Cryptocurrency>,
+    fragment: Fragment
+) : RecyclerView.Adapter<CurrencyHolder>() {
+//    private var mContext: Context? = null
+//    private var mArrayList: ArrayList<Cryptocurrency>? = null
     //private var layoutInflater: LayoutInflater? = null
-    //    private val onNoteListener: CurrencyHolder.OnNoteListener? = null
 
 
-    //private val presenter: RepositoriesListPresenter? =null
+    private val listener: RecyclerViewAdapter.onItemClickListener
 
-
-    private val currency: List<Cryptocurrency>? = null
-
-
-    constructor(mContext: Context?, mArrayList: ArrayList<Cryptocurrency>?) : this() {
-        this.mContext = mContext
-        this.mArrayList = mArrayList
+    init {
+        this.listener = fragment as RecyclerViewAdapter.onItemClickListener
     }
 
 
@@ -44,17 +41,22 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<CurrencyHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return mArrayList?.size ?: 0
+        return mArrayList.size
     }
 
     override fun onBindViewHolder(holder: CurrencyHolder, position: Int) {
         // val cryptocurrency: Cryptocurrency = currency!!.get(position)
 
-        holder.bind(mArrayList!![position])
+        holder.bind(mArrayList[position])
         holder.itemView.setOnClickListener {
             Toast.makeText(mContext, position.toString(), Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    interface onItemClickListener {
+
+        fun itemDetail(postId: String)
     }
 
 }

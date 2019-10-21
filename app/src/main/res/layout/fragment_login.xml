@@ -5,7 +5,7 @@
 
         <variable
                 name="loginFragment"
-                type="com.karolapp.ideaappkt.view.LoginFragment"/>
+                type="com.karolapp.ideaappkt.ui.view.LoginFragment"/>
     </data>
 
 

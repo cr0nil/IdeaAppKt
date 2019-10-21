@@ -10,7 +10,7 @@
 
         <variable
                 name="registerFragment"
-                type="com.karolapp.ideaappkt.view.RegisterFragment"></variable>
+                type="com.karolapp.ideaappkt.ui.view.RegisterFragment"></variable>
     </data>
 
     <LinearLayout
