@@ -1,4 +1,4 @@
-package com.karolapp.ideaappkt.ui
+package com.karolapp.ideaappkt.ui.contract
 
 class BaseContract {
     interface Presenter<in T> {

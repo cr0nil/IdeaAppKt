@@ -1,13 +1,11 @@
 package com.karolapp.ideaappkt.ui.presenter
 
-import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.api.ApiClient
 import com.karolapp.ideaappkt.services.api.ApiService
-import com.karolapp.ideaappkt.ui.RecyclerContract
+import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
 class RecycelerViewPresenter : RecyclerContract.Presenter {

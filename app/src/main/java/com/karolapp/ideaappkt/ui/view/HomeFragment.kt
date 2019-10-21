@@ -17,36 +17,19 @@ import com.karolapp.ideaappkt.di.DaggerFragmentComponent
 import com.karolapp.ideaappkt.di.FragmentModule
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
-import com.karolapp.ideaappkt.ui.RecyclerContract
+import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import javax.inject.Inject
 
 
 class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onItemClickListener {
-    override fun showProgress(show: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showErrorMessage(error: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun itemDetail(postId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private var navigationView: NavigationView? = null
     private var navController: NavController? = null
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var recyclerView: RecyclerView
 
-    private lateinit var rootView: View
     @Inject
     lateinit var presenter: RecyclerContract.Presenter
-    val TAG = "home fragment"
-
-    fun newInstance(): HomeFragment {
-        return HomeFragment()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +52,6 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
             )
         )
 
-        // getData()
         return fragmentHomeBinding.root
     }
 
@@ -79,7 +61,6 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         presenter.subscribe()
         initView()
     }
-
 
 
     private fun initView() {
@@ -103,12 +84,6 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         // itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
-
-//    private fun displayCurrency(rates: Rates) {
-//        Log.i(TAG, rates.getCryptocurrencyList()!!.size.toString())
-//        recyclerView.adapter = RecyclerViewAdapter(context, rates.getCryptocurrencyList()!!)
-//    }
-
     private fun injectDependency() {
 
         val listComponent = DaggerFragmentComponent.builder()
@@ -117,6 +92,19 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
         listComponent.inject(this)
     }
+
+    override fun showProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showErrorMessage(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun itemDetail(postId: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.unsubscribe()

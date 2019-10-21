@@ -2,7 +2,7 @@ package com.karolapp.ideaappkt.di
 
 import com.karolapp.ideaappkt.services.api.ApiClient
 import com.karolapp.ideaappkt.services.api.ApiService
-import com.karolapp.ideaappkt.ui.RecyclerContract
+import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import com.karolapp.ideaappkt.ui.presenter.RecycelerViewPresenter
 import dagger.Module
 import dagger.Provides

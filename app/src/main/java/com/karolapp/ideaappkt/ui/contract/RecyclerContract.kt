@@ -1,6 +1,5 @@
-package com.karolapp.ideaappkt.ui
+package com.karolapp.ideaappkt.ui.contract
 
-import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
 
 class RecyclerContract {
