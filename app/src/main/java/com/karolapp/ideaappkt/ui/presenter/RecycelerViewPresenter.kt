@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class RecycelerViewPresenter : RecyclerContract.Presenter {
-    private val service: ApiService = ApiClient.create()
+//    private val service: ApiService = ApiClient.create()
     private lateinit var view: RecyclerContract.View
     private val subscriptions = CompositeDisposable()
 
@@ -26,7 +26,7 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
     }
 
 
-    override fun loadData(adapter : RecyclerViewAdapter) {
+    override fun loadData(adapter : RecyclerViewAdapter,service: ApiService ) {
         var subscribe = service.getCryptocurrency()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

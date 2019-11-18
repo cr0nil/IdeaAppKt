@@ -19,8 +19,10 @@ import com.karolapp.ideaappkt.di.DaggerFragmentComponent
 import com.karolapp.ideaappkt.di.FragmentModule
 import com.karolapp.ideaappkt.di.Module.HomeFragmentModule
 import com.karolapp.ideaappkt.di.Module.HomeFragmentModule_RecyclerViewAdapterFactory
+import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
+import com.karolapp.ideaappkt.services.api.ApiService
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import javax.inject.Inject
 
@@ -32,6 +34,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerViewAdapter
+    lateinit var cryptocurrencyApiService: ApiService
 
     @Inject
     lateinit var presenter: RecyclerContract.Presenter
@@ -41,6 +44,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         val homefragmentComponent =
             DaggerHomeFragmentComponent.builder().homeFragmentModule(HomeFragmentModule(this)).build()
         recyclerAdapter = homefragmentComponent.recyclerViewAdapter
+        cryptocurrencyApiService = homefragmentComponent.getCrytptoCurrencyServis()
         injectDependency()
     }
 
@@ -72,7 +76,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
 
     private fun initView() {
-        presenter.loadData(recyclerAdapter)
+        presenter.loadData(recyclerAdapter,cryptocurrencyApiService)
     }
 
     override fun loadDataSuccess(rates: Rates,adapter: RecyclerViewAdapter) {
