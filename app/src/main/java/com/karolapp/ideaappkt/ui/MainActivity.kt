@@ -13,13 +13,17 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.R
+import com.karolapp.ideaappkt.ui.contract.MainContract
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var toolbar: Toolbar? = null
     private var navigationView: NavigationView? = null
     private var navController: NavController? = null
     private var drawerLayout: DrawerLayout? = null
+//    @Inject
+//    lateinit var presenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +31,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)
-        navController = Navigation.findNavController(this,
+        navController = Navigation.findNavController(
+            this,
             R.id.nav_host_fragment2
         )
         navigationView = findViewById(R.id.nav_view)

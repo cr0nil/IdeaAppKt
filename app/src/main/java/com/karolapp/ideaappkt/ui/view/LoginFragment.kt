@@ -12,11 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentLoginBinding
+import com.karolapp.ideaappkt.ui.contract.AuthContract
 import com.karolapp.ideaappkt.ui.view.presenter.LoginPresenterImpl
-import com.karolapp.ideaappkt.ui.view.interfaces.AuthView
 
 
-class LoginFragment : Fragment(), AuthView {
+class LoginFragment : Fragment(), AuthContract.AuthView {
     private lateinit var loginPresenterImpl: LoginPresenterImpl
     private lateinit var fragmentLoginBinding: FragmentLoginBinding
     private lateinit var mAuth: FirebaseAuth
@@ -31,7 +31,8 @@ class LoginFragment : Fragment(), AuthView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentLoginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        fragmentLoginBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         fragmentLoginBinding.loginFragment = this
         return fragmentLoginBinding.root
         // Inflate the layout for this fragment
@@ -43,6 +44,11 @@ class LoginFragment : Fragment(), AuthView {
         toast.show()
         val intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun authFailure() {
+        val toast = Toast.makeText(context, "Failure! Try again", Toast.LENGTH_SHORT)
+        toast.show()
     }
 
     fun singIn() {

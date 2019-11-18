@@ -1,6 +1,7 @@
 package com.karolapp.ideaappkt.ui.presenter
 
 import com.karolapp.ideaappkt.model.Rates
+import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.api.ApiClient
 import com.karolapp.ideaappkt.services.api.ApiService
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
@@ -25,12 +26,12 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
     }
 
 
-    override fun loadData() {
+    override fun loadData(adapter : RecyclerViewAdapter) {
         var subscribe = service.getCryptocurrency()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ rates: Rates ->
-                view.loadDataSuccess(rates)
+                view.loadDataSuccess(rates,adapter)
             })
 
 

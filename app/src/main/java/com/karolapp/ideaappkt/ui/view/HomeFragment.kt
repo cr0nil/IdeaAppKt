@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
+import com.karolapp.ideaappkt.di.Component.DaggerHomeFragmentComponent
+import com.karolapp.ideaappkt.di.Component.HomeFragmentComponent
 import com.karolapp.ideaappkt.di.DaggerFragmentComponent
 import com.karolapp.ideaappkt.di.FragmentModule
+import com.karolapp.ideaappkt.di.Module.HomeFragmentModule
+import com.karolapp.ideaappkt.di.Module.HomeFragmentModule_RecyclerViewAdapterFactory
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
@@ -27,12 +31,16 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     private var navController: NavController? = null
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var recyclerView: RecyclerView
+    lateinit var recyclerAdapter: RecyclerViewAdapter
 
     @Inject
     lateinit var presenter: RecyclerContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val homefragmentComponent =
+            DaggerHomeFragmentComponent.builder().homeFragmentModule(HomeFragmentModule(this)).build()
+        recyclerAdapter = homefragmentComponent.recyclerViewAdapter
         injectDependency()
     }
 
@@ -64,24 +72,13 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
 
     private fun initView() {
-        presenter.loadData()
+        presenter.loadData(recyclerAdapter)
     }
 
-    override fun loadDataSuccess(rates: Rates) {
+    override fun loadDataSuccess(rates: Rates,adapter: RecyclerViewAdapter) {
 
-        var adapter = RecyclerViewAdapter(context!!, rates.getCryptocurrencyList()!!, this)
-
-        recyclerView.setAdapter(adapter)
-
-//        val swipeHandler = object : SwipeToDelete(actiity) {
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val adapter = recyclerView.adapter as RecyclerViewAdapter
-//                adapter.removeAt(viewHolder.adapterPosition)
-//            }
-//        }
-
-        //  val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        // itemTouchHelper.attachToRecyclerView(recyclerView)
+        recyclerAdapter.setItems(rates.getCryptocurrencyList()!!)
+        recyclerView.setAdapter(recyclerAdapter)
     }
 
     private fun injectDependency() {

@@ -12,11 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentRegisterBinding
+import com.karolapp.ideaappkt.ui.contract.AuthContract
 import com.karolapp.ideaappkt.ui.view.presenter.RegisterPreseterImpl
-import com.karolapp.ideaappkt.ui.view.interfaces.AuthView
 
 
-class RegisterFragment : Fragment(), AuthView {
+class RegisterFragment : Fragment(), AuthContract.AuthView {
 
     private lateinit var registerPreseterImpl: RegisterPreseterImpl
     private lateinit var registerBinding: FragmentRegisterBinding
@@ -32,7 +32,8 @@ class RegisterFragment : Fragment(), AuthView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        registerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
+        registerBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
         registerBinding.registerFragment = this
         return registerBinding.root
     }
@@ -42,6 +43,11 @@ class RegisterFragment : Fragment(), AuthView {
         toast.show()
         val intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun authFailure() {
+        val toast = Toast.makeText(context, "Failure! Try again", Toast.LENGTH_SHORT)
+        toast.show()
     }
 
     fun createAccount() {
