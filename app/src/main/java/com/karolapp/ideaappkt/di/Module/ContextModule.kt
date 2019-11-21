@@ -1,7 +1,7 @@
 package com.karolapp.ideaappkt.di.Module
 
 import android.content.Context
-import com.karolapp.ideaappkt.di.Scope.ApliactionScop
+import com.karolapp.ideaappkt.di.Scope.PerApplication
 import com.karolapp.ideaappkt.di.Scope.ApplicationContext
 import dagger.Module
 import dagger.Provides
@@ -11,7 +11,7 @@ import dagger.Provides
 class ContextModule(internal var context: Context) {
 
     @ApplicationContext
-    @ApliactionScop
+    @PerApplication
     @Provides
     fun context(): Context {
         return context.getApplicationContext()

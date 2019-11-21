@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             this,
             R.id.nav_host_fragment2
         )
+
         navigationView = findViewById(R.id.nav_view)
 
         NavigationUI.setupActionBarWithNavController(this, navController!!, drawerLayout)

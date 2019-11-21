@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
 import com.karolapp.ideaappkt.di.Component.DaggerHomeFragmentComponent
-import com.karolapp.ideaappkt.di.Component.HomeFragmentComponent
-import com.karolapp.ideaappkt.di.DaggerFragmentComponent
-import com.karolapp.ideaappkt.di.FragmentModule
+//import com.karolapp.ideaappkt.di.DaggerFragmentComponent
 import com.karolapp.ideaappkt.di.Module.HomeFragmentModule
-import com.karolapp.ideaappkt.di.Module.HomeFragmentModule_RecyclerViewAdapterFactory
-import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.api.ApiService
@@ -41,10 +38,12 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val homefragmentComponent =
-            DaggerHomeFragmentComponent.builder().homeFragmentModule(HomeFragmentModule(this)).build()
+        val currenycyAplication =  CryptocurrenycyAplication.get(this)
+//        val app = this as CryptoCurrenycyAplication
+//        app.cryptocurrencyApplicationComponent.inject(this)
+        val homefragmentComponent =DaggerHomeFragmentComponent.builder().homeFragmentModule(HomeFragmentModule(this)).build()
         recyclerAdapter = homefragmentComponent.recyclerViewAdapter
-        cryptocurrencyApiService = homefragmentComponent.getCrytptoCurrencyServis()
+       // cryptocurrencyApiService = homefragmentComponent.getCrytptoCurrencyService
         injectDependency()
     }
 
@@ -87,11 +86,11 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
     private fun injectDependency() {
 
-        val listComponent = DaggerFragmentComponent.builder()
-            .fragmentModule(FragmentModule())
-            .build()
-
-        listComponent.inject(this)
+//        val listComponent = DaggerFragmentComponent.builder()
+//            .fragmentModule(FragmentModule())
+//            .build()
+//
+//        listComponent.inject(this)
     }
 
     override fun showProgress(show: Boolean) {

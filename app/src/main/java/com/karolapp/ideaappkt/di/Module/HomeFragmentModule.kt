@@ -1,6 +1,6 @@
 package com.karolapp.ideaappkt.di.Module
 
-import com.karolapp.ideaappkt.di.Scope.HomeFragmentScope
+import com.karolapp.ideaappkt.di.Scope.PerFragment
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.ui.view.HomeFragment
 import dagger.Module
@@ -17,7 +17,7 @@ public class HomeFragmentModule {
 
 
     @Provides
-    @HomeFragmentScope
+    @PerFragment
     public fun recyclerViewAdapter(): RecyclerViewAdapter {
         return  RecyclerViewAdapter(fragment = homeFragment)
     }

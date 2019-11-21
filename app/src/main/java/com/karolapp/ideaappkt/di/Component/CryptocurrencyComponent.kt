@@ -1,12 +1,14 @@
 package com.karolapp.ideaappkt.di.Component
 
-import com.karolapp.ideaappkt.di.Module.CryptoCurrencyModule
-import com.karolapp.ideaappkt.di.Scope.ApliactionScop
-import com.karolapp.ideaappkt.services.api.ApiService
+import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
+import com.karolapp.ideaappkt.di.Scope.PerApplication
+import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import dagger.Component
 
-@ApliactionScop
-@Component(modules = arrayOf(CryptoCurrencyModule::class))
+@PerApplication
+@Component(modules = arrayOf(CryptocurrencyModule::class))
 interface CryptocurrencyComponent {
-    fun getCrytptoCurrencyServis(): ApiService
+    //val getCrytptoCurrencyService : ApiService
+
+    fun inject(app: CryptocurrenycyAplication)
 }

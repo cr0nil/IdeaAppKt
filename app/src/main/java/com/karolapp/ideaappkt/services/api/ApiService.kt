@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 
 
-interface ApiService {
+public interface ApiService {
 
 //    var apiKey = "E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
     @Headers(

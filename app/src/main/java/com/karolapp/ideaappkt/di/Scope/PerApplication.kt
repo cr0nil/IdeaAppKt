@@ -5,4 +5,4 @@ import javax.inject.Scope
 
 @Scope
 @Retention(RetentionPolicy.CLASS)
-annotation class ApliactionScop
+annotation class PerApplication
