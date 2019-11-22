@@ -1,5 +1,6 @@
 package com.karolapp.ideaappkt.ui.view
 
+//import com.karolapp.ideaappkt.di.DaggerFragmentComponent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,9 @@ import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
-import com.karolapp.ideaappkt.di.Component.DaggerHomeFragmentComponent
-//import com.karolapp.ideaappkt.di.DaggerFragmentComponent
-import com.karolapp.ideaappkt.di.Module.HomeFragmentModule
+import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
+import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.api.ApiService
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
@@ -31,20 +31,26 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerViewAdapter
-    lateinit var cryptocurrencyApiService: ApiService
+
 
     @Inject
     lateinit var presenter: RecyclerContract.Presenter
 
+    init {
+        CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
+    }
+
+    private val itemListenerMovie = object : ItemListener<Cryptocurrency> {
+        override fun onClick(item: Cryptocurrency) {
+            presenter.getDetailsMovie(item.name!!)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val currenycyAplication =  CryptocurrenycyAplication.get(this)
-//        val app = this as CryptoCurrenycyAplication
-//        app.cryptocurrencyApplicationComponent.inject(this)
-        val homefragmentComponent =DaggerHomeFragmentComponent.builder().homeFragmentModule(HomeFragmentModule(this)).build()
-        recyclerAdapter = homefragmentComponent.recyclerViewAdapter
-       // cryptocurrencyApiService = homefragmentComponent.getCrytptoCurrencyService
-        injectDependency()
+        recyclerAdapter = RecyclerViewAdapter(itemListenerMovie, this)
+        presenter.attach(this)
+
     }
 
     override fun onCreateView(
@@ -66,32 +72,23 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         return fragmentHomeBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.attach(this)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         presenter.subscribe()
         initView()
     }
 
 
     private fun initView() {
-        presenter.loadData(recyclerAdapter,cryptocurrencyApiService)
+        presenter.loadData(recyclerAdapter)
     }
 
-    override fun loadDataSuccess(rates: Rates,adapter: RecyclerViewAdapter) {
+    override fun loadDataSuccess(rates: Rates, adapter: RecyclerViewAdapter) {
 
         recyclerAdapter.setItems(rates.getCryptocurrencyList()!!)
         recyclerView.setAdapter(recyclerAdapter)
     }
 
-    private fun injectDependency() {
-
-//        val listComponent = DaggerFragmentComponent.builder()
-//            .fragmentModule(FragmentModule())
-//            .build()
-//
-//        listComponent.inject(this)
-    }
 
     override fun showProgress(show: Boolean) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

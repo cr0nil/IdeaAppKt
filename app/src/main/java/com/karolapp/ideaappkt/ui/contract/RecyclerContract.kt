@@ -5,16 +5,17 @@ import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.api.ApiService
 
 class RecyclerContract {
-    interface View: BaseContract.View {
+    interface View : BaseContract.View {
         fun showProgress(show: Boolean)
         fun showErrorMessage(error: String)
         fun loadDataSuccess(rates: Rates, adapter: RecyclerViewAdapter)
-    //    fun loadDataAllSuccess(model: DetailsViewModel)
+        //    fun loadDataAllSuccess(model: DetailsViewModel)
     }
 
-    interface Presenter: BaseContract.Presenter<View> {
-        fun loadData(adapter: RecyclerViewAdapter,service: ApiService)
-      //  fun loadDataAll()
-       // fun deleteItem(item: Post)
+    interface Presenter : BaseContract.Presenter<View> {
+        fun loadData(adapter: RecyclerViewAdapter)
+        fun getDetailsMovie(id: String)
+        //  fun loadDataAll()
+        // fun deleteItem(item: Post)
     }
 }

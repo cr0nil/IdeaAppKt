@@ -7,7 +7,7 @@ import com.google.gson.annotations.Expose
 class Cryptocurrency {
     @SerializedName("asset_id_quote")
     @Expose
-    private var name: String? = null
+    internal var name: String? = null
     @SerializedName("time")
     @Expose
     private var time: String? = null

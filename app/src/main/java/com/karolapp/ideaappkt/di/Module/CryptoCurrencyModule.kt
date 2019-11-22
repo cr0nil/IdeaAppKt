@@ -13,11 +13,11 @@ import retrofit2.create
 public class CryptocurrencyModule {
 
     @Provides
-
     fun randomUsersApi(retrofit: Retrofit): ApiService {
         return retrofit.create()
     }
-    @PerApplication
+
+
     @Provides
     fun create(): Retrofit {
 
