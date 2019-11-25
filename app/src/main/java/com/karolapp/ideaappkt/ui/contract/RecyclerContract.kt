@@ -1,8 +1,8 @@
 package com.karolapp.ideaappkt.ui.contract
+import android.view.View
 
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
-import com.karolapp.ideaappkt.services.api.ApiService
 
 class RecyclerContract {
     interface View : BaseContract.View {
@@ -14,7 +14,7 @@ class RecyclerContract {
 
     interface Presenter : BaseContract.Presenter<View> {
         fun loadData(adapter: RecyclerViewAdapter)
-        fun getDetailsMovie(id: String)
+        fun getDetailsCurrency(id: String)
         //  fun loadDataAll()
         // fun deleteItem(item: Post)
     }

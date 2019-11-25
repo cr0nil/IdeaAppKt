@@ -43,7 +43,7 @@ class RecyclerViewAdapter(
         holder.bind(mArrayList[position])
 //        itemListener
         holder.itemView.setOnClickListener {
-            Toast.makeText(fragment.context, position.toString(), Toast.LENGTH_LONG).show()
+           itemListener.onClick(result)
         }
 
     }

@@ -1,6 +1,10 @@
 package com.karolapp.ideaappkt.ui.presenter
 
+import android.view.View
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
+import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
 import com.karolapp.ideaappkt.model.Rates
@@ -13,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 class RecycelerViewPresenter : RecyclerContract.Presenter {
     private lateinit var view: RecyclerContract.View
     private val subscriptions = CompositeDisposable()
-
+    private var navController: NavController? = null
     //    @Inject
 //    lateinit var service: ApiService
 
@@ -51,8 +55,13 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
         subscriptions.add(subscribe)
     }
 
-    override fun getDetailsMovie(id: String) {
+    override fun getDetailsCurrency(id: String) {
+
     }
+
+//    override fun getDetailsMovie(id: String, view : View) {
+//
+//    }
 }
 
 

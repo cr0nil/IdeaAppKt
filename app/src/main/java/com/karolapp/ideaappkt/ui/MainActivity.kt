@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Handle the camera action
             }
             R.id.nav_gallery -> {
-
+                navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
             }
             R.id.nav_slideshow -> {
 

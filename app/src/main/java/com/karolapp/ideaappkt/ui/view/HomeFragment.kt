@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,6 @@ import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
-import com.karolapp.ideaappkt.services.api.ApiService
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import javax.inject.Inject
 
@@ -42,7 +42,9 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
     private val itemListenerMovie = object : ItemListener<Cryptocurrency> {
         override fun onClick(item: Cryptocurrency) {
-            presenter.getDetailsMovie(item.name!!)
+
+            navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
+            presenter.getDetailsCurrency(item.name!!)
         }
     }
 
@@ -72,6 +74,10 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         return fragmentHomeBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         presenter.subscribe()

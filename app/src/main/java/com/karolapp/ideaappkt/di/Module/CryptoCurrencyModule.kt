@@ -1,6 +1,5 @@
 package com.karolapp.ideaappkt.di.Module
 
-import com.karolapp.ideaappkt.di.Scope.PerApplication
 import com.karolapp.ideaappkt.services.api.ApiService
 import dagger.Module
 import dagger.Provides
