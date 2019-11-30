@@ -1,15 +1,15 @@
 package com.karolapp.ideaappkt.model
 
 
-class HistoricalData(
-    time_period_start: String,
-    time_period_end: String,
-    time_open: String,
-    time_close: String,
-    price_open: Double,
-    price_high: Double,
-    price_low: Double,
-    price_close: Double,
-    volume_traded: Double,
-    trades_count: Int
+data class HistoricalData(
+    val time_period_start: String,
+    val time_period_end: String,
+    val time_open: String,
+    val time_close: String,
+    val price_open: Double,
+    val price_high: Double,
+    val price_low: Double,
+    val price_close: Double,
+    val volume_traded: Double,
+    val trades_count: Int
 )

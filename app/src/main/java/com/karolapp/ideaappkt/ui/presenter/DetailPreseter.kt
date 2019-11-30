@@ -35,11 +35,11 @@ class DetailPreseter : DetailContract.Presenter {
                 .build()
 
 
-        var subscribe = service.gerCryptoService().getHistoricalData(base_id)
+        var subscribe = service.gerCryptoService().getHistoricalData("BTC")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({t: HistoricalData ->
-                view.loadDataSuccess(t)
+            .subscribe({it->
+                view.loadDataSuccess(it)
 
 
             })

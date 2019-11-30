@@ -6,7 +6,7 @@ class DetailContract {
 
 
     interface View : BaseContract.View {
-        fun loadDataSuccess(historicalData: HistoricalData)
+        fun loadDataSuccess(historicalData: List<HistoricalData>)
         //    fun loadDataAllSuccess(model: DetailsViewModel)
     }
 

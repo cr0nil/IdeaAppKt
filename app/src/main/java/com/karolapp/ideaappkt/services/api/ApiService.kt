@@ -16,7 +16,10 @@ public interface ApiService {
     )
     @GET("exchangerate/USD/")
     fun getCryptocurrency(): Observable<Rates>
+    @Headers(
 
-    @GET("ohlcv/BTC/USD/history?period_id=1MIN&time_start=2016-01-01T00:00:00")
-    fun getHistoricalData(@Path("asset_id_base") baseId: String): Observable<HistoricalData>
+        "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
+    )
+    @GET("ohlcv/{asset_id_base}/USD/history?period_id=1MIN&time_start=2016-01-01T00:00:00")
+    fun getHistoricalData(@Path("asset_id_base") baseId: String): Observable<List<HistoricalData>>
 }
