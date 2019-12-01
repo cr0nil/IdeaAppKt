@@ -11,7 +11,7 @@ import com.karolapp.ideaappkt.services.holder.CurrencyHolder
 
 class DetailAdapter(private val itemListener: ItemListener<HistoricalData>
                     ): RecyclerView.Adapter<CurrencyHolder>(){
-    lateinit var mArrayList: ArrayList<HistoricalData>
+    lateinit var mArrayList: List<HistoricalData>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyHolder {
 
@@ -29,30 +29,30 @@ class DetailAdapter(private val itemListener: ItemListener<HistoricalData>
         return mArrayList.size
     }
 
-    fun setItems(rates: ArrayList<HistoricalData>) {
+    fun setItems(rates: List<HistoricalData>) {
         mArrayList = rates
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: CurrencyHolder, position: Int) {
         val result = mArrayList.get(position)
-     //   holder.bind(mArrayList[position])
+        holder.bindDetail( mArrayList[position])
 //        itemListener
         holder.itemView.setOnClickListener {
             itemListener.onClick(result)
         }
 
     }
-    fun replaceData(data: List<HistoricalData>) {
-        this.mArrayList.clear()
-        this.mArrayList.addAll(data)
-        notifyDataSetChanged()
-    }
-
-    fun addMoreItem(data: List<HistoricalData>) {
-        this.mArrayList.addAll(data)
-        notifyDataSetChanged()
-    }
+//    fun replaceData(data: List<HistoricalData>) {
+//        this.mArrayList.clear()
+//        this.mArrayList.addAll(data)
+//        notifyDataSetChanged()
+//    }
+//
+//    fun addMoreItem(data: List<HistoricalData>) {
+//        this.mArrayList.addAll(data)
+//        notifyDataSetChanged()
+//    }
     interface onItemClickListener {
 
         fun itemDetail(postId: String)

@@ -18,7 +18,6 @@ class DetailPreseter : DetailContract.Presenter {
 
     }
     override fun subscribe() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun unsubscribe() {
@@ -33,9 +32,9 @@ class DetailPreseter : DetailContract.Presenter {
         val service =
             DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
                 .build()
+Log.i("tututu",base_id)
 
-
-        var subscribe = service.gerCryptoService().getHistoricalData("BTC")
+        var subscribe = service.gerCryptoService().getHistoricalData(base_id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({it->
@@ -45,7 +44,7 @@ class DetailPreseter : DetailContract.Presenter {
             })
 
 //
-//        subscriptions.add(subscribe)
+        subscriptions.add(subscribe)
     }
 
 }

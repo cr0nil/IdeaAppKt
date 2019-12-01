@@ -42,8 +42,8 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
     private val itemListenerMovie = object : ItemListener<Cryptocurrency> {
         override fun onClick(item: Cryptocurrency) {
-
-            navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item.getName().toString())
+            navController!!.navigate(action)
             presenter.getDetailsCurrency(item.name!!)
         }
     }
@@ -78,6 +78,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         presenter.subscribe()

@@ -14,6 +14,7 @@ import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentDetailsBinding
 import com.karolapp.ideaappkt.model.HistoricalData
+import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.DetailAdapter
 import com.karolapp.ideaappkt.ui.contract.DetailContract
 import javax.inject.Inject
@@ -25,13 +26,23 @@ class DetailsFragment : Fragment(), DetailContract.View {
     lateinit var recyclerAdapter: DetailAdapter
     @Inject
     lateinit var presenter: DetailContract.Presenter
+
     init {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
     }
+
+    private val itemListenerMovie = object : ItemListener<HistoricalData> {
+        override fun onClick(item: HistoricalData) {
+//val action =
+//            navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
+//            presenter.getDetailsCurrency(item.name!!)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        recyclerAdapter = DetailAdapter(itemListenerMovie)
         presenter.attach(this)
-
 
     }
 
@@ -39,7 +50,8 @@ class DetailsFragment : Fragment(), DetailContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
+        fragmentDetailsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
 
         recyclerView = fragmentDetailsBinding.recyclerViewDetail
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -50,17 +62,25 @@ class DetailsFragment : Fragment(), DetailContract.View {
             )
         )
 
-        Log.i("historical data", "dat")
 
-      //  presenter.subscribe()
-        presenter.getHistoricalData("BTC")
+        val x = DetailsFragmentArgs.fromBundle(arguments!! ).currencyName
+        Log.i("text", x)
+        presenter.subscribe()
+        presenter.getHistoricalData(x)
 
 
         return fragmentDetailsBinding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+    }
     override fun loadDataSuccess(historicalData: List<HistoricalData>) {
-        Log.i("historical data", historicalData.toString())
+        Log.i("historical data", "dat")
+        recyclerAdapter.setItems(historicalData)
+        recyclerView.setAdapter(recyclerAdapter)
+
     }
 
 }

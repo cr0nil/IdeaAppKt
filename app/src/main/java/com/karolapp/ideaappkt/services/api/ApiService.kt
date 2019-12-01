@@ -20,6 +20,6 @@ public interface ApiService {
 
         "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
     )
-    @GET("ohlcv/{asset_id_base}/USD/history?period_id=1MIN&time_start=2016-01-01T00:00:00")
+    @GET("ohlcv/{asset_id_base}/USD/history?period_id=10DAY&time_start=2017-01-01T00:00:00&limit=80")
     fun getHistoricalData(@Path("asset_id_base") baseId: String): Observable<List<HistoricalData>>
 }
