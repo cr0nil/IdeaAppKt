@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.crashlytics.android.Crashlytics
 import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
@@ -45,6 +46,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
             val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item.getName().toString())
             navController!!.navigate(action)
             presenter.getDetailsCurrency(item.name!!)
+
         }
     }
 

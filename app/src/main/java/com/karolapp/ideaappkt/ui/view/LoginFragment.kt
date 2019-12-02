@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.crashlytics.android.Crashlytics
 import com.google.firebase.auth.FirebaseAuth
 import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentLoginBinding
 import com.karolapp.ideaappkt.ui.contract.AuthContract
 import com.karolapp.ideaappkt.ui.view.presenter.LoginPresenterImpl
+import java.lang.Exception
 
 
 class LoginFragment : Fragment(), AuthContract.AuthView {
@@ -48,16 +50,20 @@ class LoginFragment : Fragment(), AuthContract.AuthView {
 
     override fun authFailure() {
         val toast = Toast.makeText(context, "Failure! Try again", Toast.LENGTH_SHORT)
+   val exeption = Throwable("error222")
+            Crashlytics.logException(exeption)
+
         toast.show()
     }
 
     fun singIn() {
-        loginPresenterImpl.handleLogin(
-            fragmentLoginBinding.inEmail.text.toString(),
-            fragmentLoginBinding.inPassword.text.toString(),
-            activity,
-            mAuth
-        )
+            loginPresenterImpl.handleLogin(
+                fragmentLoginBinding.inEmail.text.toString(),
+                fragmentLoginBinding.inPassword.text.toString(),
+                activity,
+                mAuth
+            )
+
 
     }
 
