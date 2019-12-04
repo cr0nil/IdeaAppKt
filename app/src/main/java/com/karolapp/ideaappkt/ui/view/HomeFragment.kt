@@ -98,6 +98,9 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         recyclerView.setAdapter(recyclerAdapter)
     }
 
+    override fun loadIconSuccess() {
+        presenter.getIcons(context!!)
+    }
 
     override fun showProgress(show: Boolean) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

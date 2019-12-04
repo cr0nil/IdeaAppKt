@@ -1,10 +1,9 @@
 package com.karolapp.ideaappkt.ui.presenter
 
-import android.view.View
+import android.content.Context
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
-import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
 import com.karolapp.ideaappkt.model.Rates
@@ -59,9 +58,23 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
 
     }
 
+    override fun getIcons(context: Context) {
+        Glide
+            .with(context)
+            .load()
+            .downloadOnly(2000, 2000)
+//    emitter.onComplete();    }
+
+        fun getImg(context: Context) {
+//    Glide
+//        .with(context)
+//        .load()
+//        .downloadOnly(2000, 2000)
+//    emitter.onComplete();
+        }
 //    override fun getDetailsMovie(id: String, view : View) {
 //
 //    }
-}
+    }
 
 
