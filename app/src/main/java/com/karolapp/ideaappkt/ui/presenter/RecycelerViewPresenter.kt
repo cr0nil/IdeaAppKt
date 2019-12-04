@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
+import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
@@ -59,19 +60,27 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
     }
 
     override fun getIcons(context: Context) {
-        Glide
-            .with(context)
-            .load()
-            .downloadOnly(2000, 2000)
-//    emitter.onComplete();    }
+        val service =
+            DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
+                .build()
 
-        fun getImg(context: Context) {
-//    Glide
-//        .with(context)
-//        .load()
-//        .downloadOnly(2000, 2000)
-//    emitter.onComplete();
-        }
+
+        var subscribe = service.gerCryptoService().getIcons()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.loadIconSuccess(it)
+            })
+
+
+        subscriptions.add(subscribe)
+//        Glide
+//            .with(context)
+//            .load()
+//            .downloadOnly(2000, 2000)
+//    emitter.onComplete();    }
+    }
+
 //    override fun getDetailsMovie(id: String, view : View) {
 //
 //    }

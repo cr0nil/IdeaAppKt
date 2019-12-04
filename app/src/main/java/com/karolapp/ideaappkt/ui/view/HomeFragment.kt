@@ -2,6 +2,7 @@ package com.karolapp.ideaappkt.ui.view
 
 //import com.karolapp.ideaappkt.di.DaggerFragmentComponent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
 import com.karolapp.ideaappkt.model.Cryptocurrency
+import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
@@ -90,6 +92,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
     private fun initView() {
         presenter.loadData(recyclerAdapter)
+        presenter.getIcons(context!!)
     }
 
     override fun loadDataSuccess(rates: Rates, adapter: RecyclerViewAdapter) {
@@ -98,8 +101,10 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         recyclerView.setAdapter(recyclerAdapter)
     }
 
-    override fun loadIconSuccess() {
-        presenter.getIcons(context!!)
+    override fun loadIconSuccess(iconsCurrency: List<IconsCurrency>) {
+
+
+        Log.i("log icons",iconsCurrency.toString())
     }
 
     override fun showProgress(show: Boolean) {

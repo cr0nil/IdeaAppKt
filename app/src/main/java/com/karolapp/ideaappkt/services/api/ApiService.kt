@@ -27,6 +27,6 @@ public interface ApiService {
 
         "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
     )
-    @GET("exchanges/icons/")
+    @GET("exchanges/icons/100x100")
     fun getIcons(): Observable<List<IconsCurrency>>
 }
