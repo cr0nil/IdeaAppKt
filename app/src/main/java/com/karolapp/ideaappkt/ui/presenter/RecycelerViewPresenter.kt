@@ -64,16 +64,16 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
             DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
                 .build()
 
-
-        var subscribe = service.gerCryptoService().getIcons()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                view.loadIconSuccess(it)
-            })
-
-
-        subscriptions.add(subscribe)
+//
+//        var subscribe = service.gerCryptoService().getIcons()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                view.loadIconSuccess(it)
+//            })
+//
+//
+//        subscriptions.add(subscribe)
 //        Glide
 //            .with(context)
 //            .load()

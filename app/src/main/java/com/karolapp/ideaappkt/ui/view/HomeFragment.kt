@@ -20,6 +20,7 @@ import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
 import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.IconsCurrency
+import com.karolapp.ideaappkt.model.ItemHome
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
@@ -96,13 +97,13 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     }
 
     override fun loadDataSuccess(rates: Rates, adapter: RecyclerViewAdapter) {
+        var itemsHome: List<ItemHome>
 
-        recyclerAdapter.setItems(rates.getCryptocurrencyList()!!)
+     //   recyclerAdapter.setItems(rates.getCryptocurrencyList()!!)
         recyclerView.setAdapter(recyclerAdapter)
     }
 
     override fun loadIconSuccess(iconsCurrency: List<IconsCurrency>) {
-
 
         Log.i("log icons",iconsCurrency.toString())
     }

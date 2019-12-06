@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data class = "CryptocurrencyDataBinding">
+    <data class="CryptocurrencyDataBinding">
 
         <variable
                 name="cryptocurrency"
                 type="com.karolapp.ideaappkt.model.Cryptocurrency" />
+        <variable
+                name="icons"
+                type="com.karolapp.ideaappkt.model.IconsCurrency" />
 
         <variable
                 name="handler"
@@ -23,19 +26,32 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="20">
+                android:layout_weight="15">
 
-            <TextView
-                    android:id="@+id/cryptocurrency_name"
+            <ImageView
+                    android:id="@+id/cryptocurrency_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{cryptocurrency.name}"/>
+                    android:src ="@{icons.url}" />
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="80">
+                android:layout_gravity="center_vertical"
+                android:layout_weight="15">
+
+            <TextView
+                    android:id="@+id/cryptocurrency_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{cryptocurrency.name}" />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70">
 
             <TextView
 
