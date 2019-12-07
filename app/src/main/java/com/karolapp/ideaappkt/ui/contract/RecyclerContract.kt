@@ -18,6 +18,7 @@ class RecyclerContract {
         fun loadData(adapter: RecyclerViewAdapter)
         fun getDetailsCurrency(id: String)
         fun getIcons(context: Context)
+        fun getDetails()
         //  fun loadDataAll()
         // fun deleteItem(item: Post)
     }

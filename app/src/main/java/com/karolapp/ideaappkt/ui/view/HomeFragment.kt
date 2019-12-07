@@ -92,8 +92,9 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
 
     private fun initView() {
-        presenter.loadData(recyclerAdapter)
-        presenter.getIcons(context!!)
+     //   presenter.loadData(recyclerAdapter)
+        presenter.getDetails()
+       // presenter.getIcons(context!!)
     }
 
     override fun loadDataSuccess(rates: Rates, adapter: RecyclerViewAdapter) {

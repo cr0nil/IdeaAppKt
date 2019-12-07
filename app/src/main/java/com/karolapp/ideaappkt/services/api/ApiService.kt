@@ -14,8 +14,8 @@ public interface ApiService {
 
         "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
     )
-    @GET("exchangerate/USD/")
-    fun getCryptocurrency(): Single<Rates>
+    @GET("exchangerate/USD?filter_asset_id=BTC,EUR")
+    fun getCryptocurrency(): Observable<Rates>
     @Headers(
 
         "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
@@ -27,5 +27,5 @@ public interface ApiService {
         "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
     )
     @GET("exchanges/icons/100x100")
-    fun getIcons(): Single<ListIconsCurrency>
+    fun getIcons(): Observable<List<IconsCurrency>>
 }
