@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
-                // Handle the camera action
+                navController!!.popBackStack()
             }
             R.id.nav_gallery -> {
                 navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)

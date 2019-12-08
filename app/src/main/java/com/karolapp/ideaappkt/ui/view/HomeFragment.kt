@@ -1,6 +1,6 @@
 package com.karolapp.ideaappkt.ui.view
 
-//import com.karolapp.ideaappkt.di.DaggerFragmentComponent
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,14 +13,12 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crashlytics.android.Crashlytics
 import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
 import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.IconsCurrency
-import com.karolapp.ideaappkt.model.ItemHome
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
@@ -46,7 +44,8 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
     private val itemListenerMovie = object : ItemListener<Cryptocurrency> {
         override fun onClick(item: Cryptocurrency) {
-            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item.getName().toString())
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item.getName().toString())
             navController!!.navigate(action)
             presenter.getDetailsCurrency(item.name!!)
 
@@ -92,21 +91,24 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
 
     private fun initView() {
-     //   presenter.loadData(recyclerAdapter)
-        presenter.getDetails()
-       // presenter.getIcons(context!!)
+        //   presenter.loadData(recyclerAdapter)
+        presenter.getDetails(recyclerAdapter)
+        // presenter.getIcons(context!!)
     }
 
-    override fun loadDataSuccess(rates: Rates, adapter: RecyclerViewAdapter) {
-        var itemsHome: List<ItemHome>
-
-     //   recyclerAdapter.setItems(rates.getCryptocurrencyList()!!)
+    override fun loadDataSuccess(
+        rates: Rates,
+        iconsCurrency: List<IconsCurrency>,
+        adapter: RecyclerViewAdapter
+    ) {
+        Log.i("success", rates.toString())
+        recyclerAdapter.setItems(rates.cryptocurrencyList!!, iconsCurrency, context!!)
         recyclerView.setAdapter(recyclerAdapter)
     }
 
     override fun loadIconSuccess(iconsCurrency: List<IconsCurrency>) {
 
-        Log.i("log icons",iconsCurrency.toString())
+        Log.i("log icons", iconsCurrency.toString())
     }
 
     override fun showProgress(show: Boolean) {

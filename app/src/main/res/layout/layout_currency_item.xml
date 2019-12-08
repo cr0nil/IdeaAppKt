@@ -25,32 +25,38 @@
         <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+              android:layout_marginLeft="5dp"
                 android:layout_weight="15">
 
             <ImageView
                     android:id="@+id/cryptocurrency_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src ="@{icons.url}" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@{icons.url}" />
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="15">
+                android:layout_marginLeft="5dp"
+                android:layout_weight="15"
+                android:alwaysDrawnWithCache="false"
+                android:animateLayoutChanges="false">
 
             <TextView
                     android:id="@+id/cryptocurrency_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{cryptocurrency.name}" />
+                    android:text="@{cryptocurrency.name}"
+                    android:textColor="#D4AF37" />
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
                 android:layout_weight="70">
 
             <TextView
@@ -58,8 +64,7 @@
                     android:id="@+id/cryptocurrency_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="0dp"
+                    android:textColor="#D4AF37"
                     android:text="@{cryptocurrency.rate}" />
         </RelativeLayout>
 

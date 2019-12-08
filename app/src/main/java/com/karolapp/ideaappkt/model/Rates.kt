@@ -3,12 +3,12 @@ package com.karolapp.ideaappkt.model
 import com.google.gson.annotations.SerializedName
 
 
-data class Rates (
-//    @SerializedName("asset_id_base")
-//    private var asset_id_base: String? = null
+data class Rates(
+    @SerializedName("asset_id_base")
+     var asset_id_base: String? = null,
 
     @SerializedName("rates")
-    private var cryptocurrencyList: ArrayList<Cryptocurrency>? = null
+     var cryptocurrencyList: List<Cryptocurrency>? = null
 )
 //    constructor(asset_id_base: String?, cryptocurrencyList: ArrayList<Cryptocurrency>?) {
 //        this.asset_id_base = asset_id_base
