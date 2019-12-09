@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
@@ -21,17 +22,21 @@ import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
+import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import javax.inject.Inject
 
 
-class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onItemClickListener {
+class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onItemClickListener,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private var navigationView: NavigationView? = null
     private var navController: NavController? = null
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerViewAdapter
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
 
 
     @Inject
@@ -61,6 +66,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         fragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
@@ -72,7 +78,22 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
                 DividerItemDecoration.VERTICAL
             )
         )
+        swipeRefreshLayout = fragmentHomeBinding.swiperefresh
+        swipeRefreshLayout.setOnRefreshListener(this)
+//        swipeRefreshLayout.setColorSchemeResources(
+//            R.color.holo_green_dark,
+//            R.color.holo_orange_dark,
+//            R.color.holo_blue_dark
+//        )
 
+
+//        swipeRefreshLayout.post(Runnable {
+//            swipeRefreshLayout.setRefreshing(true)
+//            // Fetching data from server
+//            initView()
+//        })
+//        (activity as (MainActivity) )
+//            .setActionBarTitle("Your title")
         return fragmentHomeBinding.root
     }
 
@@ -99,6 +120,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     ) {
         recyclerAdapter.setItems(rates.cryptocurrencyList!!, iconsCurrency, context!!)
         recyclerView.setAdapter(recyclerAdapter)
+        swipeRefreshLayout.setRefreshing(false)
     }
 
 
@@ -118,4 +140,10 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         super.onDestroyView()
         presenter.unsubscribe()
     }
+
+    override fun onRefresh() {
+        initView()
+    }
+
+
 }

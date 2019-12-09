@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.toolbar)
+
         setSupportActionBar(toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)
         navController = Navigation.findNavController(
@@ -63,6 +64,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+     fun setActionBarTitle(title: String) {
+        getSupportActionBar()!!.setTitle(title)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -83,9 +88,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
+                toolbar!!.setTitle("Exchange")
                 navController!!.popBackStack()
             }
             R.id.nav_gallery -> {
+                toolbar!!.setTitle("Historical data")
                 navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
             }
             R.id.nav_slideshow -> {
