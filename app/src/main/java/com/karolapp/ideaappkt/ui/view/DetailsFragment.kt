@@ -10,6 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentDetailsBinding
@@ -31,7 +36,7 @@ class DetailsFragment : Fragment(), DetailContract.View {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
     }
 
-    private val itemListenerMovie = object : ItemListener<HistoricalData> {
+    private val itemListenerDetail = object : ItemListener<HistoricalData> {
         override fun onClick(item: HistoricalData) {
 //val action =
 //            navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
@@ -41,7 +46,7 @@ class DetailsFragment : Fragment(), DetailContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recyclerAdapter = DetailAdapter(itemListenerMovie)
+        recyclerAdapter = DetailAdapter(itemListenerDetail)
         presenter.attach(this)
 
     }
@@ -63,11 +68,20 @@ class DetailsFragment : Fragment(), DetailContract.View {
         )
 
 
-        val x = DetailsFragmentArgs.fromBundle(arguments!! ).currencyName
+        val x = DetailsFragmentArgs.fromBundle(arguments!!).currencyName
         Log.i("text", x)
         presenter.subscribe()
         presenter.getHistoricalData(x)
 
+        val z = listOf(Entry(1f,2f),Entry(3f,4f))
+        val   set1 = LineDataSet(z, "DataSet 1")
+        val dataSets =  ArrayList<ILineDataSet>()
+        dataSets.add(set1)
+        val data1 = LineData(dataSets)
+
+        val chartL:LineChart= fragmentDetailsBinding.chart
+
+        chartL.setData(data1)
 
         return fragmentDetailsBinding.root
     }
@@ -76,6 +90,7 @@ class DetailsFragment : Fragment(), DetailContract.View {
         super.onActivityCreated(savedInstanceState)
 
     }
+
     override fun loadDataSuccess(historicalData: List<HistoricalData>) {
         Log.i("historical data", "dat")
         recyclerAdapter.setItems(historicalData)

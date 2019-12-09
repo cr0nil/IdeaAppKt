@@ -1,6 +1,7 @@
 package com.karolapp.ideaappkt.ui.presenter
 
 import android.util.Log
+import com.crashlytics.android.Crashlytics
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
@@ -37,11 +38,11 @@ Log.i("tututu",base_id)
         var subscribe = service.gerCryptoService().getHistoricalData(base_id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({it->
-                view.loadDataSuccess(it)
-
-
+            .subscribe({ it ->
+                view.loadDataSuccess(it)},{
+                throwable -> Crashlytics.logException(throwable)
             })
+
 
 //
         subscriptions.add(subscribe)
