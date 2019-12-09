@@ -9,14 +9,12 @@ class RecyclerContract {
         fun showProgress(show: Boolean)
         fun showErrorMessage(error: String)
         fun loadDataSuccess(rates: Rates,listIconsCurrency: List<IconsCurrency>,adapter: RecyclerViewAdapter)
-        fun loadIconSuccess(iconsCurrency: List<IconsCurrency>)
         //    fun loadDataAllSuccess(model: DetailsViewModel)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
         fun loadData(adapter: RecyclerViewAdapter)
-        fun getDetailsCurrency(id: String)
-        fun getDetails(adapter: RecyclerViewAdapter)
+        fun getRepositoryCurrency(adapter: RecyclerViewAdapter)
 
     }
 }

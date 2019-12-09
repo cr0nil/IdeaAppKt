@@ -1,6 +1,7 @@
 package com.karolapp.ideaappkt.ui.presenter
 
 import android.util.Log
+import com.crashlytics.android.Crashlytics
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
@@ -12,7 +13,6 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 
 class RecycelerViewPresenter : RecyclerContract.Presenter {
@@ -53,39 +53,35 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
 //        subscriptions.add(subscribe)
     }
 
-    override fun getDetailsCurrency(id: String) {
 
-    }
-
-
-
-    override fun getDetails(adapter: RecyclerViewAdapter) {
+    override fun getRepositoryCurrency(adapter: RecyclerViewAdapter) {
 //        view?.showLoading()
         val service =
             DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
                 .build()
         val currencyRepository = CurrencyRepository(service.gerCryptoService())
-        currencyRepository.getDetails()
+        currencyRepository.getRatesAndIcons()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 getObserver(adapter)
             )
     }
+
     private fun getObserver(adapter: RecyclerViewAdapter): Observer<ItemHome> {
         return object : Observer<ItemHome> {
             override fun onSubscribe(d: Disposable) {
                 println("onSubscribe")
             }
 
-            override fun onNext(userList:ItemHome) {
+            override fun onNext(userList: ItemHome) {
                 Log.i("on next", userList.iconsCurrency.toString())
-                view.loadDataSuccess(userList.cryptocurrency,userList.iconsCurrency,adapter)
+                view.loadDataSuccess(userList.cryptocurrency, userList.iconsCurrency, adapter)
 
             }
 
             override fun onError(e: Throwable) {
-                println("onError : ${e.message}")
+                Crashlytics.logException(e)
             }
 
             override fun onComplete() {

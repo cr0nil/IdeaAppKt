@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 
 data class IconsCurrency(
-    @SerializedName("exchange_id")
+    @SerializedName("asset_id")
     @Expose
-    val exchange_id: String,
+    val asset_id: String,
     @SerializedName("url")
     @Expose
     val url: String

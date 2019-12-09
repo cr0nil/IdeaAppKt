@@ -2,7 +2,6 @@ package com.karolapp.ideaappkt.ui.view
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,19 +41,18 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
     }
 
-    private val itemListenerMovie = object : ItemListener<Cryptocurrency> {
+    private val itemListenerCurrencyItem = object : ItemListener<Cryptocurrency> {
         override fun onClick(item: Cryptocurrency) {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item.getName().toString())
             navController!!.navigate(action)
-            presenter.getDetailsCurrency(item.name!!)
 
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recyclerAdapter = RecyclerViewAdapter(itemListenerMovie, this)
+        recyclerAdapter = RecyclerViewAdapter(itemListenerCurrencyItem, this)
         presenter.attach(this)
 
     }
@@ -91,9 +89,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
 
 
     private fun initView() {
-        //   presenter.loadData(recyclerAdapter)
-        presenter.getDetails(recyclerAdapter)
-        // presenter.getIcons(context!!)
+        presenter.getRepositoryCurrency(recyclerAdapter)
     }
 
     override fun loadDataSuccess(
@@ -101,15 +97,10 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         iconsCurrency: List<IconsCurrency>,
         adapter: RecyclerViewAdapter
     ) {
-        Log.i("success", rates.toString())
         recyclerAdapter.setItems(rates.cryptocurrencyList!!, iconsCurrency, context!!)
         recyclerView.setAdapter(recyclerAdapter)
     }
 
-    override fun loadIconSuccess(iconsCurrency: List<IconsCurrency>) {
-
-        Log.i("log icons", iconsCurrency.toString())
-    }
 
     override fun showProgress(show: Boolean) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

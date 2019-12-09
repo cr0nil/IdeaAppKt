@@ -1,7 +1,6 @@
 package com.karolapp.ideaappkt.services.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.karolapp.ideaappkt.model.Cryptocurrency
 import com.karolapp.ideaappkt.model.IconsCurrency
-import com.karolapp.ideaappkt.model.ItemHome
-import com.karolapp.ideaappkt.model.ListIconsCurrency
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.holder.CurrencyHolder
 
@@ -50,17 +47,21 @@ class RecyclerViewAdapter(
         val result = mArrayList.get(position)
         val resut2 = mArrayListIcons.get(position)
 
-        Log.i("icona",mArrayListIcons[position].url)
         holder.bind(mArrayList[position])
-//        itemListener
         holder.itemView.setOnClickListener {
            itemListener.onClick(result)
         }
-        Glide
-            .with(context1)
-            .load(mArrayListIcons[position].url)
-            .circleCrop()
-            .into(holder.icon)
+        for(icon in mArrayListIcons){
+            if((icon.asset_id) == mArrayList.get(position).name){
+                Glide
+                    .with(context1)
+                    .load(icon.url)
+                    .circleCrop()
+                    .into(holder.icon)
+            }
+
+        }
+
     }
 
     interface onItemClickListener {
