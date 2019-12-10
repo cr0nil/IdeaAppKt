@@ -1,5 +1,7 @@
 package com.karolapp.ideaappkt.ui.view
 
+import android.graphics.Color
+import android.graphics.DashPathEffect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
@@ -31,7 +34,8 @@ class DetailsFragment : Fragment(), DetailContract.View {
     lateinit var recyclerAdapter: DetailAdapter
     @Inject
     lateinit var presenter: DetailContract.Presenter
-
+    lateinit var chartL:LineChart
+    var historicalData1: List<HistoricalData> = emptyList()
     init {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
     }
@@ -67,35 +71,41 @@ class DetailsFragment : Fragment(), DetailContract.View {
             )
         )
 
-
         val x = DetailsFragmentArgs.fromBundle(arguments!!).currencyName
         Log.i("text", x)
         presenter.subscribe()
         presenter.getHistoricalData(x)
 
-        val z = listOf(Entry(1f,2f),Entry(3f,4f))
-        val   set1 = LineDataSet(z, "DataSet 1")
-        val dataSets =  ArrayList<ILineDataSet>()
-        dataSets.add(set1)
-        val data1 = LineData(dataSets)
 
-        val chartL:LineChart= fragmentDetailsBinding.chart
 
-        chartL.setData(data1)
 
         return fragmentDetailsBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun dataSetToChartSuccess(set1: LineDataSet) {
+
 
     }
 
-    override fun loadDataSuccess(historicalData: List<HistoricalData>) {
+    override fun loadDataSuccess(historicalData: List<HistoricalData>,set1: LineDataSet) {
         Log.i("historical data", "dat")
         recyclerAdapter.setItems(historicalData)
+
         recyclerView.setAdapter(recyclerAdapter)
 
+        Log.i("set","Ser")
+        chartL= fragmentDetailsBinding.chart
+        set1.fillFormatter =
+            IFillFormatter { dataSet, dataProvider -> chartL.getAxisLeft().getAxisMinimum() }
+        val dataSets =  ArrayList<ILineDataSet>()
+        dataSets.add(set1)
+        val data1 = LineData(dataSets)
+
+
+
+        set1.notifyDataSetChanged()
+        chartL.setData(data1)
     }
 
 }

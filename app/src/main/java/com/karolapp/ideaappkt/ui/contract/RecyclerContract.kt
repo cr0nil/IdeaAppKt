@@ -16,5 +16,6 @@ class RecyclerContract {
         fun loadData(adapter: RecyclerViewAdapter)
         fun getRepositoryCurrency(adapter: RecyclerViewAdapter)
 
+
     }
 }
