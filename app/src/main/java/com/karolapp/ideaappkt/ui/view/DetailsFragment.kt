@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.listener.OnChartGestureListener
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentDetailsBinding
@@ -23,10 +25,15 @@ import com.karolapp.ideaappkt.model.HistoricalData
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.DetailAdapter
 import com.karolapp.ideaappkt.ui.contract.DetailContract
+import com.karolapp.ideaappkt.ui.presenter.MyYAxisValueFormatter
 import javax.inject.Inject
+import android.view.MotionEvent
+import com.github.mikephil.charting.listener.ChartTouchListener
+import android.R.attr.name
+import android.util.Log
 
 
-class DetailsFragment : Fragment(), DetailContract.View {
+class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
     private lateinit var fragmentDetailsBinding: FragmentDetailsBinding
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: DetailAdapter
@@ -96,12 +103,56 @@ class DetailsFragment : Fragment(), DetailContract.View {
         set1.notifyDataSetChanged()
         chartL.setData(data1)
         chartL.invalidate()
-
-//var x = chartL.xAxis
+        chartL.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chartL.xAxis.valueFormatter = MyYAxisValueFormatter()
+   chartL.setOnChartGestureListener(this)
 //     x.setValueFormatter()
 //recyceler with historical data
         recyclerAdapter.setItems(historicalData)
         recyclerView.setAdapter(recyclerAdapter)
+    }
+    override fun onChartGestureStart(
+        me: MotionEvent,
+        lastPerformedGesture: ChartTouchListener.ChartGesture
+    ) {
+        Log.i("Gesture", "START")
+    }
+
+    override fun onChartGestureEnd(
+        me: MotionEvent,
+        lastPerformedGesture: ChartTouchListener.ChartGesture
+    ) {
+        Log.i("Gesture", "END")
+        chartL.highlightValues(null)
+    }
+
+    override fun onChartLongPressed(me: MotionEvent) {
+        Log.i("LongPress", "Chart long pressed.")
+    }
+
+    override fun onChartDoubleTapped(me: MotionEvent) {
+        Log.i("DoubleTap", "Chart double-tapped.")
+    }
+
+    override fun onChartSingleTapped(me: MotionEvent) {
+        Log.i("SingleTap", "Chart single-tapped.")
+    }
+
+    override fun onChartFling(
+        me1: MotionEvent,
+        me2: MotionEvent,
+        velocityX: Float,
+        velocityY: Float
+    ) {
+        Log.i("Fling", "Chart fling. VelocityX: $velocityX, VelocityY: $velocityY")
+    }
+
+    override fun onChartScale(me: MotionEvent, scaleX: Float, scaleY: Float) {
+        Log.i("Scale / Zoom", "ScaleX: $scaleX, ScaleY: $scaleY")
+    }
+
+    override fun onChartTranslate(me: MotionEvent, dX: Float, dY: Float) {
+        Log.i("Translate / Move", "dX: $dX, dY: $dY")
     }
 
 }

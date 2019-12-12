@@ -19,7 +19,7 @@
             android:id="@+id/histricalData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#192221"
+            android:background="#171717"
             android:layout_gravity="top|center_vertical"
             android:layout_weight="100"
             android:padding="20dp"

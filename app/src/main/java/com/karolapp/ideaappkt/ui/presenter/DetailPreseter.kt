@@ -3,10 +3,10 @@ package com.karolapp.ideaappkt.ui.presenter
 import android.graphics.Color
 import android.util.Log
 import com.crashlytics.android.Crashlytics
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
@@ -16,9 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
 
 class DetailPreseter : DetailContract.Presenter {
     private val subscriptions = CompositeDisposable()
@@ -65,7 +62,7 @@ class DetailPreseter : DetailContract.Presenter {
         var inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         var date: Long?
         val values: ArrayList<Entry> = ArrayList()
-        for (i in 0..3) {
+        for (i in 0..60) {
 
             date = inputFormat.parse(historicalData1[i].time_open).time
             values.add(Entry(date.toFloat(), historicalData1[i].price_open.toFloat()))
@@ -82,7 +79,7 @@ class DetailPreseter : DetailContract.Presenter {
         set1.setColor(Color.BLUE)
         set1.setCircleColor(Color.BLUE)
         val format = MyYAxisValueFormatter()
-        set1.setValueFormatter(format)
+        //set1.setValueFormatter(format)
         // customize legend entry
         //  set1.formLineWidth = 1f
 //        set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
@@ -101,17 +98,11 @@ class DetailPreseter : DetailContract.Presenter {
 
 }
 
-class MyYAxisValueFormatter : IValueFormatter {
-
-
-    override fun getFormattedValue(
-        value: Float,
-        entry: Entry?,
-        dataSetIndex: Int,
-        viewPortHandler: ViewPortHandler?
-    ): String {
-
+class MyYAxisValueFormatter : IAxisValueFormatter {
+    override fun getFormattedValue(value: Float, axis: AxisBase?): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         return dateFormat.format(value)
     }
+
+
 }
