@@ -1,9 +1,7 @@
 package com.karolapp.ideaappkt.ui.view
 
 import android.graphics.Color
-import android.graphics.DashPathEffect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.R
@@ -34,8 +32,8 @@ class DetailsFragment : Fragment(), DetailContract.View {
     lateinit var recyclerAdapter: DetailAdapter
     @Inject
     lateinit var presenter: DetailContract.Presenter
-    lateinit var chartL:LineChart
-    var historicalData1: List<HistoricalData> = emptyList()
+    lateinit var chartL: LineChart
+
     init {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
     }
@@ -61,7 +59,7 @@ class DetailsFragment : Fragment(), DetailContract.View {
     ): View? {
         fragmentDetailsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
-
+        chartL = fragmentDetailsBinding.chart
         recyclerView = fragmentDetailsBinding.recyclerViewDetail
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(
@@ -71,41 +69,39 @@ class DetailsFragment : Fragment(), DetailContract.View {
             )
         )
 
-        val x = DetailsFragmentArgs.fromBundle(arguments!!).currencyName
-        Log.i("text", x)
+        val currencyName = DetailsFragmentArgs.fromBundle(arguments!!).currencyName
         presenter.subscribe()
-        presenter.getHistoricalData(x)
-
-
-
+        presenter.getHistoricalData(currencyName)
 
         return fragmentDetailsBinding.root
     }
 
 
-    override fun dataSetToChartSuccess(set1: LineDataSet) {
+    override fun loadDataSuccess(historicalData: List<HistoricalData>, set1: LineDataSet) {
+        // chart wit historical data
 
-
-    }
-
-    override fun loadDataSuccess(historicalData: List<HistoricalData>,set1: LineDataSet) {
-        Log.i("historical data", "dat")
-        recyclerAdapter.setItems(historicalData)
-
-        recyclerView.setAdapter(recyclerAdapter)
-
-        Log.i("set","Ser")
-        chartL= fragmentDetailsBinding.chart
-        set1.fillFormatter =
-            IFillFormatter { dataSet, dataProvider -> chartL.getAxisLeft().getAxisMinimum() }
-        val dataSets =  ArrayList<ILineDataSet>()
+        val dataSets = ArrayList<ILineDataSet>()
         dataSets.add(set1)
         val data1 = LineData(dataSets)
+        chartL.refreshDrawableState()
 
+        set1.fillFormatter =
+            IFillFormatter { dataSet: ILineDataSet, dataProvider: LineDataProvider ->
+                chartL.getAxisLeft().getAxisMinimum()
+            }
 
-
+        chartL.setBackgroundColor(Color.BLACK)
+        chartL.xAxis.textColor = Color.BLUE
+        chartL.axisLeft.textColor = Color.BLUE
         set1.notifyDataSetChanged()
         chartL.setData(data1)
+        chartL.invalidate()
+
+//var x = chartL.xAxis
+//     x.setValueFormatter()
+//recyceler with historical data
+        recyclerAdapter.setItems(historicalData)
+        recyclerView.setAdapter(recyclerAdapter)
     }
 
 }

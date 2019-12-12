@@ -2,6 +2,7 @@ package com.karolapp.ideaappkt.ui.view
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,7 +110,8 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     }
 
 
-    private fun initView() {
+     fun initView() {
+         Log.i("refresh","refresh")
         presenter.getRepositoryCurrency(recyclerAdapter)
     }
 
@@ -129,7 +131,8 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     }
 
     override fun showErrorMessage(error: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.i("error",error)
+       fragmentHomeBinding.refresh.visibility = View.VISIBLE
     }
 
     override fun itemDetail(postId: String) {
@@ -142,6 +145,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     }
 
     override fun onRefresh() {
+
         initView()
     }
 

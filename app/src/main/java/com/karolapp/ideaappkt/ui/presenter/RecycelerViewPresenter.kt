@@ -14,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 
 class RecycelerViewPresenter : RecyclerContract.Presenter {
     private lateinit var view: RecyclerContract.View
@@ -81,7 +82,14 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
             }
 
             override fun onError(e: Throwable) {
-                Crashlytics.logException(e)
+                if(e is HttpException){
+                    view.showErrorMessage("Limit -- Try again later")
+                    Log.e("error2",e.toString())
+
+                }else{
+                    Crashlytics.logException(e)
+                }
+
             }
 
             override fun onComplete() {

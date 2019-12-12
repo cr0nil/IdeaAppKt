@@ -7,15 +7,13 @@ class DetailContract {
 
 
     interface View : BaseContract.View {
-        fun loadDataSuccess(historicalData: List<HistoricalData>,set: LineDataSet)
-        fun dataSetToChartSuccess(set: LineDataSet)
-        //    fun loadDataAllSuccess(model: DetailsViewModel)
+        fun loadDataSuccess(historicalData: List<HistoricalData>, set: LineDataSet)
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {
-        //
+
         fun getHistoricalData(base_id: String)
 
-       // fun dataSetToChart()
     }
 }

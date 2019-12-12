@@ -45,7 +45,6 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: CurrencyHolder, position: Int) {
         val result = mArrayList.get(position)
-        val resut2 = mArrayListIcons.get(position)
 
         holder.bind(mArrayList[position])
         holder.itemView.setOnClickListener {
