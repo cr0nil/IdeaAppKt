@@ -86,7 +86,8 @@ class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
 
     override fun loadDataSuccess(historicalData: List<HistoricalData>, set1: LineDataSet) {
         // chart wit historical data
-
+        recyclerAdapter.setItems(historicalData)
+        recyclerView.setAdapter(recyclerAdapter)
         val dataSets = ArrayList<ILineDataSet>()
         dataSets.add(set1)
         val data1 = LineData(dataSets)
@@ -105,11 +106,11 @@ class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
         chartL.invalidate()
         chartL.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chartL.xAxis.valueFormatter = MyYAxisValueFormatter()
+        chartL.xAxis.mAxisMaximum = 15f
    chartL.setOnChartGestureListener(this)
 //     x.setValueFormatter()
 //recyceler with historical data
-        recyclerAdapter.setItems(historicalData)
-        recyclerView.setAdapter(recyclerAdapter)
+
     }
     override fun onChartGestureStart(
         me: MotionEvent,

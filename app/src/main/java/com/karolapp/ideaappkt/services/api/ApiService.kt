@@ -15,7 +15,7 @@ public interface ApiService {
 
         "X-CoinAPI-Key:E23C7AC4-72E4-4CCD-9FE5-B5BDCD99449B"
     )
-    @GET("exchangerate/BTC?filter_asset_id=USD,EUR,ETH")
+    @GET("exchangerate/BTC?filter_asset_id=USD,EUR,ETH,LTC,BCH,XRP")
     fun getCryptocurrency(): Observable<Rates>
     @Headers(
 
