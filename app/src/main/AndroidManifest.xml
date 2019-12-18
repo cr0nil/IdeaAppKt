@@ -16,11 +16,16 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".ui.EntranceActivity">
-            <meta-data android:name="android.app.searchable"
-                    android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
