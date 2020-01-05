@@ -101,7 +101,8 @@ class DetailPreseter : DetailContract.Presenter {
 class MyYAxisValueFormatter : IAxisValueFormatter {
     override fun getFormattedValue(value: Float, axis: AxisBase?): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        return dateFormat.format(value)
+        Log.i("time data",dateFormat.toString())
+        return dateFormat.format(value.toLong())
     }
 
 

@@ -106,7 +106,7 @@ class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
         chartL.invalidate()
         chartL.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chartL.xAxis.valueFormatter = MyYAxisValueFormatter()
-        chartL.xAxis.mAxisMaximum = 15f
+    //    chartL.xAxis.mAxisMaximum = 15f
    chartL.setOnChartGestureListener(this)
 //     x.setValueFormatter()
 //recyceler with historical data
