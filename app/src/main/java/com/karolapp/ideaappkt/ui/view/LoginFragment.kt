@@ -60,7 +60,7 @@ class LoginFragment : Fragment(), AuthContract.AuthView {
             loginPresenterImpl.handleLogin(
                 fragmentLoginBinding.inEmail.text.toString(),
                 fragmentLoginBinding.inPassword.text.toString(),
-                activity,
+
                 mAuth
             )
 

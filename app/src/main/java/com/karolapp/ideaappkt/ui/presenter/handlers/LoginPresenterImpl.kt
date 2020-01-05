@@ -11,7 +11,7 @@ class LoginPresenterImpl(authView: AuthContract.AuthView) : AuthContract.AuthPre
     private var loginView: AuthContract.AuthView = authView
     private val tag: String = "Login"
 
-    override fun handleLogin(name: String, password: String, activity: Activity?, mAuth: FirebaseAuth) {
+    override fun handleLogin(name: String, password: String, mAuth: FirebaseAuth) {
         mAuth.signInWithEmailAndPassword(name, password)
             .addOnCompleteListener { task ->
 

@@ -1,11 +1,12 @@
 package com.karolapp.ideaappkt.ui.view
 
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -23,13 +24,19 @@ import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
-import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.ui.contract.RecyclerContract
 import javax.inject.Inject
 
 
 class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onItemClickListener,
-    SwipeRefreshLayout.OnRefreshListener {
+    SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private var navigationView: NavigationView? = null
     private var navController: NavController? = null
@@ -37,7 +44,8 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerViewAdapter
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
+    lateinit var searchView: SearchView
+    lateinit var item: MenuItem
 
 
     @Inject
@@ -60,6 +68,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         super.onCreate(savedInstanceState)
         recyclerAdapter = RecyclerViewAdapter(itemListenerCurrencyItem, this)
         presenter.attach(this)
+        setHasOptionsMenu(true)
 
     }
 
@@ -72,6 +81,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         recyclerView = fragmentHomeBinding.recyclerView
+
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -110,8 +120,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     }
 
 
-     fun initView() {
-         Log.i("refresh","refresh")
+    fun initView() {
         presenter.getRepositoryCurrency(recyclerAdapter)
     }
 
@@ -131,8 +140,8 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     }
 
     override fun showErrorMessage(error: String) {
-        Log.i("error",error)
-       fragmentHomeBinding.refresh.visibility = View.VISIBLE
+        Log.i("error", error)
+        fragmentHomeBinding.refresh.visibility = View.VISIBLE
     }
 
     override fun itemDetail(postId: String) {
@@ -147,6 +156,28 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     override fun onRefresh() {
 
         initView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        item = menu.findItem(R.id.search)
+        searchView = item.actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity!!.componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                recyclerAdapter.filter.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                recyclerAdapter.filter.filter(newText)
+                return true
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 

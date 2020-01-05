@@ -54,7 +54,6 @@ class RegisterFragment : Fragment(), AuthContract.AuthView {
         registerPreseterImpl.handleLogin(
             registerBinding.inEmail.text.toString(),
             registerBinding.inPassword.text.toString(),
-            activity,
             mAuth
         )
     }

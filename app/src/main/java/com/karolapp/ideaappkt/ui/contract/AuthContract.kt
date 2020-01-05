@@ -10,6 +10,6 @@ class AuthContract {
     }
 
     interface AuthPresenter {
-        fun handleLogin(name: String, password: String, activity: Activity?, mAuth: FirebaseAuth)
+        fun handleLogin(name: String, password: String, mAuth: FirebaseAuth)
     }
 }
