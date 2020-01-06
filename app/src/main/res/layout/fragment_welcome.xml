@@ -11,7 +11,7 @@
             android:id="@+id/welcomeFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#171717"
+            android:background="@color/darkBackground"
             android:gravity="center"
             android:orientation="vertical"
     >

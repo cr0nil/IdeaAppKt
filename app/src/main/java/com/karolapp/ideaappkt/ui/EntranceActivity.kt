@@ -23,4 +23,9 @@ class EntranceActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onBackPressed() {
+        finishAffinity()
+        super.onBackPressed()
+    }
 }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data class = "DetailDataBinding">
+    <data class="DetailDataBinding">
 
         <variable
                 name="historicalData"
@@ -19,9 +18,9 @@
             android:id="@+id/histricalData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#171717"
             android:layout_gravity="top|center_vertical"
             android:layout_weight="100"
+            android:background="@color/darkBackground"
             android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -32,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="test"
-                android:textColor="#D4AF37"
+                android:textColor="@color/fontGoldColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView3" />
 
@@ -45,8 +44,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="#D4AF37"
                 android:text="test"
+                android:textColor="@color/fontGoldColor"
                 app:layout_constraintBottom_toTopOf="@+id/price_open"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="parent"
@@ -59,8 +58,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="#D4AF37"
                 android:text="time open"
+                android:textColor="@color/fontGoldColor"
                 app:layout_constraintBottom_toTopOf="@+id/textView3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -70,8 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:textColor="#D4AF37"
                 android:text="price open"
+                android:textColor="@color/fontGoldColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -80,13 +79,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
-                android:textColor="#D4AF37"
                 android:text="$"
+                android:textColor="@color/fontGoldColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/price_open" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </layout>

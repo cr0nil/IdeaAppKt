@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{cryptocurrency.name}"
-                    android:textColor="#D4AF37" />
+                    android:textColor="@color/fontGoldColor" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -64,7 +64,7 @@
                     android:id="@+id/cryptocurrency_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#D4AF37"
+                    android:textColor="@color/fontGoldColor"
                     android:text="@{cryptocurrency.rate}" />
         </RelativeLayout>
 

@@ -2,6 +2,7 @@ package com.karolapp.ideaappkt.ui
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.ui.contract.MainContract
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var navigationView: NavigationView? = null
     private var navController: NavController? = null
     private var drawerLayout: DrawerLayout? = null
+    private var firebase :FirebaseAuth? = null
 //    @Inject
 //    lateinit var presenter: MainContract.Presenter
 
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_host_fragment2
         )
 
+        firebase= FirebaseAuth.getInstance()
         navigationView = findViewById(R.id.nav_view)
 
         NavigationUI.setupActionBarWithNavController(this, navController!!, drawerLayout)
@@ -63,7 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            finishAffinity()
+
         }
     }
 
@@ -113,11 +118,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_send -> {
-                onBackPressed()
+
+                firebase!!.signOut()
+                val intent = Intent(this, EntranceActivity::class.java)
+                startActivity(intent)
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
 }

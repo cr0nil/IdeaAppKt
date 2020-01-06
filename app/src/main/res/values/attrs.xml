@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="fontGoldColor" format="reference" />
+    <attr name="darkBackground" format="reference" />
+</resources>
