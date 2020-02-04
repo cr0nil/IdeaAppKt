@@ -8,7 +8,7 @@ import dagger.Component
 
 @Component(
     modules = arrayOf(HomeFragmentModule::class),
-    dependencies = arrayOf(CryptocurrencyComponent::class)
+    dependencies = arrayOf(AppComponent::class)
 )
 
 interface HomeFragmentComponent {

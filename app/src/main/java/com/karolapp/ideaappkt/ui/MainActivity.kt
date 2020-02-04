@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var navController: NavController? = null
     private var drawerLayout: DrawerLayout? = null
     private var firebase :FirebaseAuth? = null
+    @Inject
+    lateinit var context:Context
 //    @Inject
 //    lateinit var presenter: MainContract.Presenter
 
@@ -105,6 +108,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navController!!.popBackStack()
             }
             R.id.nav_gallery -> {
+                Toast.makeText(context,"go to historical data",Toast.LENGTH_SHORT).show()
                 toolbar!!.setTitle("Historical data")
                 navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
             }

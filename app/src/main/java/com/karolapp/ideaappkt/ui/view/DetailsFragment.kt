@@ -1,6 +1,5 @@
 package com.karolapp.ideaappkt.ui.view
 
-import android.R.attr.data
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,18 +18,16 @@ import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.listener.OnChartGestureListener
-import com.karolapp.ideaappkt.CryptocurrenycyAplication
+import com.karolapp.ideaappkt.BaseApplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentDetailsBinding
 import com.karolapp.ideaappkt.model.HistoricalData
-import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.DetailAdapter
 import com.karolapp.ideaappkt.ui.contract.DetailContract
 import com.karolapp.ideaappkt.ui.presenter.MyYAxisValueFormatter
 import javax.inject.Inject
 import android.view.MotionEvent
 import com.github.mikephil.charting.listener.ChartTouchListener
-import android.R.attr.name
 import android.util.Log
 
 
@@ -44,7 +41,7 @@ class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener 
     lateinit var chartL: LineChart
 
     init {
-        CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
+        BaseApplication.appApplicationComponent.inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

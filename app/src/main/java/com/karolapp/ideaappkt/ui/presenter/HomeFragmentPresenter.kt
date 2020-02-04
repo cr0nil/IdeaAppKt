@@ -2,11 +2,13 @@ package com.karolapp.ideaappkt.ui.presenter
 
 import android.util.Log
 import com.crashlytics.android.Crashlytics
-import com.karolapp.ideaappkt.CryptocurrenycyAplication
-import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
-import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
+import com.karolapp.ideaappkt.BaseApplication
+import com.karolapp.ideaappkt.di.Component.DaggerAppComponent
+import com.karolapp.ideaappkt.di.Module.AppModule
 import com.karolapp.ideaappkt.model.ItemHome
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
+import com.karolapp.ideaappkt.services.api.ApiClient
+import com.karolapp.ideaappkt.services.api.ApiService
 import com.karolapp.ideaappkt.services.repository.CurrencyRepository
 import com.karolapp.ideaappkt.ui.contract.HomeFragmentContract
 import io.reactivex.Observer
@@ -15,15 +17,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class HomeFragmentPresenter : HomeFragmentContract.Presenter {
+class HomeFragmentPresenter @Inject constructor(private val service: ApiClient) : HomeFragmentContract.Presenter {
     private lateinit var view: HomeFragmentContract.View
     private val subscriptions = CompositeDisposable()
 
-    init {
-        CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
-
-    }
+//    init {
+//        BaseApplication.appApplicationComponent.inject(this)
+//
+//    }
 
     override fun subscribe() {
     }
@@ -61,10 +64,11 @@ class HomeFragmentPresenter : HomeFragmentContract.Presenter {
 
     override fun getRepositoryCurrency(adapter: RecyclerViewAdapter) {
 //        view?.showLoading()
-        val service =
-            DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
-                .build()
-        val currencyRepository = CurrencyRepository(service.gerCryptoService())
+//        val service =
+//            DaggerAppComponent.builder().appModule(AppModule())
+//                .build()
+
+        val currencyRepository = CurrencyRepository(service.create())
         currencyRepository.getRatesAndIcons()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())

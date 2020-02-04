@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
-import com.karolapp.ideaappkt.CryptocurrenycyAplication
+import com.karolapp.ideaappkt.BaseApplication
 import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentHomeBinding
 import com.karolapp.ideaappkt.model.Cryptocurrency
@@ -55,7 +55,7 @@ class HomeFragment : Fragment(), HomeFragmentContract.View, RecyclerViewAdapter.
 
 
     init {
-        CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
+        BaseApplication.appApplicationComponent.inject(this)
     }
 
     private val itemListenerCurrencyItem = object : ItemListener<Cryptocurrency> {

@@ -7,24 +7,28 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.karolapp.ideaappkt.CryptocurrenycyAplication
-import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
-import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
+import com.karolapp.ideaappkt.BaseApplication
+import com.karolapp.ideaappkt.di.Component.DaggerAppComponent
+import com.karolapp.ideaappkt.di.Component.DaggerHomeFragmentComponent
+import com.karolapp.ideaappkt.di.Module.AppModule
+import com.karolapp.ideaappkt.di.Module.HomeFragmentModule
 import com.karolapp.ideaappkt.model.HistoricalData
+import com.karolapp.ideaappkt.services.api.ApiClient
 import com.karolapp.ideaappkt.ui.contract.DetailContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
-class DetailPreseter : DetailContract.Presenter {
+class DetailPreseter @Inject constructor(private val service: ApiClient) : DetailContract.Presenter {
     private val subscriptions = CompositeDisposable()
     private lateinit var view: DetailContract.View
 
-    init {
-        CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
-
-    }
+//    init {
+//        BaseApplication.appApplicationComponent.inject(this)
+//
+//    }
 
     override fun subscribe() {
     }
@@ -38,12 +42,11 @@ class DetailPreseter : DetailContract.Presenter {
     }
 
     override fun getHistoricalData(base_id: String) {
-        val service =
-            DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
-                .build()
-        Log.i("tututu", base_id)
+//        val service =
+//            DaggerHomeFragmentComponent.builder().homeFragmentModule(HomeFragmentModule(this))
+//        Log.i("tututu", base_id)
 
-        var subscribe = service.gerCryptoService().getHistoricalData(base_id)
+        var subscribe = service.create().getHistoricalData(base_id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ it ->
