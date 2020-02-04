@@ -9,8 +9,7 @@ import com.karolapp.ideaappkt.model.HistoricalData
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.holder.CurrencyHolder
 
-class DetailAdapter(private val itemListener: ItemListener<HistoricalData>
-                    ): RecyclerView.Adapter<CurrencyHolder>(){
+class DetailAdapter : RecyclerView.Adapter<CurrencyHolder>() {
     lateinit var mArrayList: List<HistoricalData>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyHolder {
@@ -36,11 +35,7 @@ class DetailAdapter(private val itemListener: ItemListener<HistoricalData>
 
     override fun onBindViewHolder(holder: CurrencyHolder, position: Int) {
         val result = mArrayList.get(position)
-        holder.bindDetail( mArrayList[position])
-//        itemListener
-        holder.itemView.setOnClickListener {
-            itemListener.onClick(result)
-        }
+        holder.bindDetail(mArrayList[position])
 
     }
 //    fun replaceData(data: List<HistoricalData>) {
@@ -53,9 +48,5 @@ class DetailAdapter(private val itemListener: ItemListener<HistoricalData>
 //        this.mArrayList.addAll(data)
 //        notifyDataSetChanged()
 //    }
-    interface onItemClickListener {
-
-        fun itemDetail(postId: String)
-    }
 
 }

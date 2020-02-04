@@ -8,7 +8,7 @@ import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
 import com.karolapp.ideaappkt.model.ItemHome
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.repository.CurrencyRepository
-import com.karolapp.ideaappkt.ui.contract.RecyclerContract
+import com.karolapp.ideaappkt.ui.contract.HomeFragmentContract
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,8 +16,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class RecycelerViewPresenter : RecyclerContract.Presenter {
-    private lateinit var view: RecyclerContract.View
+class HomeFragmentPresenter : HomeFragmentContract.Presenter {
+    private lateinit var view: HomeFragmentContract.View
     private val subscriptions = CompositeDisposable()
 
     init {
@@ -32,7 +32,11 @@ class RecycelerViewPresenter : RecyclerContract.Presenter {
         subscriptions.clear()
     }
 
-    override fun attach(view: RecyclerContract.View) {
+//    override fun attach(view: HomeFragmentContract.View) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//    }
+
+    override fun attach(view: HomeFragmentContract.View) {
         this.view = view
     }
 

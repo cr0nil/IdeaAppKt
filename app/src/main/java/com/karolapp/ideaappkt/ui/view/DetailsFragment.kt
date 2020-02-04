@@ -1,5 +1,6 @@
 package com.karolapp.ideaappkt.ui.view
 
+import android.R.attr.data
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,35 +34,29 @@ import android.R.attr.name
 import android.util.Log
 
 
-class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
+class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener {
+    @Inject
+    lateinit var presenter: DetailContract.Presenter
+
     private lateinit var fragmentDetailsBinding: FragmentDetailsBinding
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: DetailAdapter
-    @Inject
-    lateinit var presenter: DetailContract.Presenter
     lateinit var chartL: LineChart
 
     init {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
     }
 
-    private val itemListenerDetail = object : ItemListener<HistoricalData> {
-        override fun onClick(item: HistoricalData) {
-//val action =
-//            navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
-//            presenter.getDetailsCurrency(item.name!!)
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recyclerAdapter = DetailAdapter(itemListenerDetail)
+        recyclerAdapter = DetailAdapter()
         presenter.attach(this)
 
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         fragmentDetailsBinding =
@@ -98,20 +93,11 @@ class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
                 chartL.getAxisLeft().getAxisMinimum()
             }
 
-        chartL.setBackgroundColor(Color.BLACK)
-        chartL.xAxis.textColor = Color.BLUE
-        chartL.axisLeft.textColor = Color.BLUE
+        setChart(data1)
         set1.notifyDataSetChanged()
-        chartL.setData(data1)
-        chartL.invalidate()
-        chartL.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        chartL.xAxis.valueFormatter = MyYAxisValueFormatter()
-    //    chartL.xAxis.mAxisMaximum = 15f
-   chartL.setOnChartGestureListener(this)
-//     x.setValueFormatter()
-//recyceler with historical data
 
     }
+
     override fun onChartGestureStart(
         me: MotionEvent,
         lastPerformedGesture: ChartTouchListener.ChartGesture
@@ -136,7 +122,7 @@ class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
     }
 
     override fun onChartSingleTapped(me: MotionEvent) {
-        Log.i("SingleTap", "Chart single-tapped.")
+
     }
 
     override fun onChartFling(
@@ -154,6 +140,18 @@ class DetailsFragment : Fragment(), DetailContract.View,OnChartGestureListener {
 
     override fun onChartTranslate(me: MotionEvent, dX: Float, dY: Float) {
         Log.i("Translate / Move", "dX: $dX, dY: $dY")
+    }
+
+    fun setChart(data: LineData) {
+        chartL.setBackgroundColor(Color.BLACK)
+        chartL.xAxis.textColor = Color.BLUE
+        chartL.axisLeft.textColor = Color.BLUE
+
+        chartL.setData(data)
+        chartL.invalidate()
+        chartL.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chartL.xAxis.valueFormatter = MyYAxisValueFormatter()
+        chartL.setOnChartGestureListener(this)
     }
 
 }

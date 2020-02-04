@@ -1,12 +1,9 @@
 package com.karolapp.ideaappkt.di.Module
 
-import com.karolapp.ideaappkt.di.Scope.PerFragment
-import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.ui.contract.DetailContract
-import com.karolapp.ideaappkt.ui.contract.RecyclerContract
+import com.karolapp.ideaappkt.ui.contract.HomeFragmentContract
 import com.karolapp.ideaappkt.ui.presenter.DetailPreseter
-import com.karolapp.ideaappkt.ui.presenter.RecycelerViewPresenter
-import com.karolapp.ideaappkt.ui.view.HomeFragment
+import com.karolapp.ideaappkt.ui.presenter.HomeFragmentPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -14,7 +11,7 @@ import dagger.Provides
 public class HomeFragmentModule {
 
     @Provides
-    fun provideLRecyclerContract(): RecyclerContract.Presenter = RecycelerViewPresenter()
+    fun provideLRecyclerContract(): HomeFragmentContract.Presenter = HomeFragmentPresenter()
 
     @Provides
     fun provideDetailContract(): DetailContract.Presenter = DetailPreseter()

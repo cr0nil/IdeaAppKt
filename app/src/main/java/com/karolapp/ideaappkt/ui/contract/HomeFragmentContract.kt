@@ -4,7 +4,7 @@ import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 
-class RecyclerContract {
+class HomeFragmentContract {
     interface View : BaseContract.View {
         fun showProgress(show: Boolean)
         fun showErrorMessage(error: String)

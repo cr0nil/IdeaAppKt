@@ -24,12 +24,18 @@ import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.ItemListener
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
-import com.karolapp.ideaappkt.ui.contract.RecyclerContract
+import com.karolapp.ideaappkt.ui.contract.HomeFragmentContract
 import javax.inject.Inject
 
 
-class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onItemClickListener,
+class HomeFragment : Fragment(), HomeFragmentContract.View, RecyclerViewAdapter.onItemClickListener,
     SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
+
+    @Inject
+    lateinit var presenter: HomeFragmentContract.Presenter
+//    @Inject
+//    lateinit var view: HomeFragmentContract.View
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -47,9 +53,6 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
     lateinit var searchView: SearchView
     lateinit var item: MenuItem
 
-
-    @Inject
-    lateinit var presenter: RecyclerContract.Presenter
 
     init {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
@@ -153,10 +156,7 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         presenter.unsubscribe()
     }
 
-    override fun onRefresh() {
-
-        initView()
-    }
+    override fun onRefresh() = initView()
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
@@ -179,6 +179,5 @@ class HomeFragment : Fragment(), RecyclerContract.View, RecyclerViewAdapter.onIt
         })
         super.onCreateOptionsMenu(menu, inflater)
     }
-
 
 }
