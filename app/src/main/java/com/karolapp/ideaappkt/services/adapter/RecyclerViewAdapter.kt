@@ -67,11 +67,6 @@ class RecyclerViewAdapter(
 
     }
 
-    interface onItemClickListener {
-
-        fun itemDetail(postId: String)
-    }
-
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {

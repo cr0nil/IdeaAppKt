@@ -1,11 +1,18 @@
 package com.karolapp.ideaappkt.ui.presenter
 
+import android.content.Context
 import android.util.Log
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.crashlytics.android.Crashlytics
 import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
+import com.karolapp.ideaappkt.di.Component.DaggerHomeFragmentComponent
+import com.karolapp.ideaappkt.di.Module.ContextModule
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
 import com.karolapp.ideaappkt.model.ItemHome
+import com.karolapp.ideaappkt.services.WorkManager.WorkerManager
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
 import com.karolapp.ideaappkt.services.repository.CurrencyRepository
 import com.karolapp.ideaappkt.ui.contract.HomeFragmentContract
@@ -15,6 +22,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
+import java.util.concurrent.TimeUnit
 
 class HomeFragmentPresenter : HomeFragmentContract.Presenter {
     private lateinit var view: HomeFragmentContract.View
@@ -32,30 +40,8 @@ class HomeFragmentPresenter : HomeFragmentContract.Presenter {
         subscriptions.clear()
     }
 
-//    override fun attach(view: HomeFragmentContract.View) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-
     override fun attach(view: HomeFragmentContract.View) {
         this.view = view
-    }
-
-
-    override fun loadData(adapter: RecyclerViewAdapter) {
-//        val service =
-//            DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
-//                .build()
-//
-//
-//        var subscribe = service.gerCryptoService().getCryptocurrency()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ rates: Rates ->
-//                view.loadDataSuccess(rates, adapter)
-//            })
-//
-//
-//        subscriptions.add(subscribe)
     }
 
 
@@ -86,11 +72,11 @@ class HomeFragmentPresenter : HomeFragmentContract.Presenter {
             }
 
             override fun onError(e: Throwable) {
-                if(e is HttpException){
+                if (e is HttpException) {
                     view.showErrorMessage("Limit -- Try again later")
-                    Log.e("error2",e.toString())
+                    Log.e("error2", e.toString())
 
-                }else{
+                } else {
                     Crashlytics.logException(e)
                 }
 
@@ -101,6 +87,8 @@ class HomeFragmentPresenter : HomeFragmentContract.Presenter {
             }
         }
     }
+
+
 }
 
 

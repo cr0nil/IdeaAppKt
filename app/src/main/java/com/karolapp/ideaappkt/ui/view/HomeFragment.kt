@@ -28,23 +28,12 @@ import com.karolapp.ideaappkt.ui.contract.HomeFragmentContract
 import javax.inject.Inject
 
 
-class HomeFragment : Fragment(), HomeFragmentContract.View, RecyclerViewAdapter.onItemClickListener,
-    SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
+class HomeFragment : Fragment(), HomeFragmentContract.View,
+    SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     lateinit var presenter: HomeFragmentContract.Presenter
-//    @Inject
-//    lateinit var view: HomeFragmentContract.View
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    private var navigationView: NavigationView? = null
     private var navController: NavController? = null
     private lateinit var fragmentHomeBinding: FragmentHomeBinding
     lateinit var recyclerView: RecyclerView
@@ -94,20 +83,7 @@ class HomeFragment : Fragment(), HomeFragmentContract.View, RecyclerViewAdapter.
         )
         swipeRefreshLayout = fragmentHomeBinding.swiperefresh
         swipeRefreshLayout.setOnRefreshListener(this)
-//        swipeRefreshLayout.setColorSchemeResources(
-//            R.color.holo_green_dark,
-//            R.color.holo_orange_dark,
-//            R.color.holo_blue_dark
-//        )
 
-
-//        swipeRefreshLayout.post(Runnable {
-//            swipeRefreshLayout.setRefreshing(true)
-//            // Fetching data from server
-//            initView()
-//        })
-//        (activity as (MainActivity) )
-//            .setActionBarTitle("Your title")
         return fragmentHomeBinding.root
     }
 
@@ -147,9 +123,7 @@ class HomeFragment : Fragment(), HomeFragmentContract.View, RecyclerViewAdapter.
         fragmentHomeBinding.refresh.visibility = View.VISIBLE
     }
 
-    override fun itemDetail(postId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

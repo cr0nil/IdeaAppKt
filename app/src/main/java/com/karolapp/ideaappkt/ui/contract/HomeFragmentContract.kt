@@ -1,5 +1,6 @@
 package com.karolapp.ideaappkt.ui.contract
 
+import android.content.Context
 import com.karolapp.ideaappkt.model.IconsCurrency
 import com.karolapp.ideaappkt.model.Rates
 import com.karolapp.ideaappkt.services.adapter.RecyclerViewAdapter
@@ -13,9 +14,6 @@ class HomeFragmentContract {
     }
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun loadData(adapter: RecyclerViewAdapter)
         fun getRepositoryCurrency(adapter: RecyclerViewAdapter)
-
-
     }
 }

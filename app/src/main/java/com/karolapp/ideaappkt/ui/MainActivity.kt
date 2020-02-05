@@ -1,33 +1,33 @@
 package com.karolapp.ideaappkt.ui
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.karolapp.ideaappkt.R
-import com.karolapp.ideaappkt.ui.contract.MainContract
+import com.karolapp.ideaappkt.services.WorkManager.WorkerManager
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var toolbar: Toolbar? = null
     private var navigationView: NavigationView? = null
     private var navController: NavController? = null
     private var drawerLayout: DrawerLayout? = null
-    private var firebase :FirebaseAuth? = null
+    private var firebase: FirebaseAuth? = null
 //    @Inject
 //    lateinit var presenter: MainContract.Presenter
 
@@ -43,13 +43,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_host_fragment2
         )
 
-        firebase= FirebaseAuth.getInstance()
+        firebase = FirebaseAuth.getInstance()
         navigationView = findViewById(R.id.nav_view)
 
         NavigationUI.setupActionBarWithNavController(this, navController!!, drawerLayout)
-
         NavigationUI.setupWithNavController(navigationView!!, navController!!)
-
         navigationView!!.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle(
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        //nav_view.setNavigationItemSelectedListener(this)
+        getValueInBackground()
     }
 
     override fun onBackPressed() {
@@ -72,30 +70,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-     fun setActionBarTitle(title: String) {
+    fun setActionBarTitle(title: String) {
         getSupportActionBar()!!.setTitle(title)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.main, menu)
-//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-//        (menu.findItem(R.id.search).actionView as SearchView).apply {
-//            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-//        }
-//        return true
-//    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-////        when (item.itemId) {
-////            R.id.action_settings -> return true
-//         //   else ->
-//        return super.onOptionsItemSelected(item)
-//    //    }
-//    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
@@ -129,4 +107,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    fun getValueInBackground() {
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .build()
+
+        val work = PeriodicWorkRequest.Builder(WorkerManager::class.java, 15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(applicationContext)
+            .enqueue(work)
+    }
 }
