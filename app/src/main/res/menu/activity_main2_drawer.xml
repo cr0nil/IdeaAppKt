@@ -9,17 +9,14 @@
                 android:icon="@drawable/ic_home_black_24dp"
                 android:title="Home"/>
         <item
-                android:id="@+id/nav_gallery"
+                android:id="@+id/nav_details"
                 android:icon="@drawable/ic_details_black_24dp"
                 android:title="Details currency"/>
         <item
-                android:id="@+id/nav_slideshow"
+                android:id="@+id/nav_alarms"
                 android:icon="@drawable/ic_menu_slideshow"
-                android:title="To do"/>
-        <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="To do"/>
+                android:title="Alarms"/>
+       
     </group>
 
     <item android:title="Communicate">

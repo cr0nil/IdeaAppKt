@@ -3,6 +3,7 @@ package com.karolapp.ideaappkt.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -58,7 +59,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        getValueInBackground()
     }
 
     override fun onBackPressed() {
@@ -82,15 +82,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 toolbar!!.setTitle("Exchange")
                 navController!!.popBackStack()
             }
-            R.id.nav_gallery -> {
+            R.id.nav_details -> {
                 toolbar!!.setTitle("Historical data")
                 navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
             }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
+            R.id.nav_alarms -> {
+                toolbar!!.setTitle("Alarms")
+                navController!!.navigate(R.id.action_homeFragment_to_alarmFragment)
             }
             R.id.nav_share -> {
 

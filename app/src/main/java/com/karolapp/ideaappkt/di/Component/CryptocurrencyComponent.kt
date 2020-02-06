@@ -4,6 +4,7 @@ import com.karolapp.ideaappkt.CryptocurrenycyAplication
 import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
 import com.karolapp.ideaappkt.di.Module.HomeFragmentModule
 import com.karolapp.ideaappkt.services.api.ApiService
+import com.karolapp.ideaappkt.ui.presenter.AlarmPresenter
 import com.karolapp.ideaappkt.ui.presenter.DetailPreseter
 import com.karolapp.ideaappkt.ui.presenter.HomeFragmentPresenter
 import com.karolapp.ideaappkt.ui.view.DetailsFragment
@@ -24,4 +25,6 @@ interface CryptocurrencyComponent {
     fun inject(detailsFragment: DetailsFragment)
 
     fun inject(detailPreseter: DetailPreseter)
+
+    fun inject(alarmPresenter: AlarmPresenter)
 }

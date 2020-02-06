@@ -14,6 +14,9 @@
                 android:id="@+id/action_homeFragment_to_detailsFragment"
                 app:destination="@+id/detailsFragment"
                 app:popUpTo="@+id/homeFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_alarmFragment"
+                app:destination="@id/alarmFragment" />
 
     </fragment>
     <fragment
@@ -25,6 +28,17 @@
                 android:name="currencyName"
                 android:defaultValue="BTC"
                 app:argType="string" />
+        <action
+                android:id="@+id/action_detailsFragment_to_alarmFragment"
+                app:destination="@id/alarmFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/alarmFragment"
+            android:name="com.karolapp.ideaappkt.ui.view.AlarmFragment"
+            android:label="AlarmFragment" >
+        <action
+                android:id="@+id/action_alarmFragment_to_detailsFragment"
+                app:destination="@id/detailsFragment" />
     </fragment>
 
 </navigation>

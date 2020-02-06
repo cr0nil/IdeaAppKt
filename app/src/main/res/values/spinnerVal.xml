@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>ETH</item>
+        <item>LTC</item>
+        <item>BCH</item>
+
+    </string-array>
+</resources>

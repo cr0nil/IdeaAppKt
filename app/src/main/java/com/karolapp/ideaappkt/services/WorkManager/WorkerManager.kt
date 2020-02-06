@@ -9,15 +9,38 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.crashlytics.android.Crashlytics
 import com.karolapp.ideaappkt.R
+import com.karolapp.ideaappkt.di.Component.DaggerCryptocurrencyComponent
+import com.karolapp.ideaappkt.di.Module.CryptocurrencyModule
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class WorkerManager(context: Context,workerParameters: WorkerParameters) : Worker(context,workerParameters){
+    private val subscriptions = CompositeDisposable()
     val CHANNEL_ID = "1"
     override fun doWork(): Result {
-        displayNotification()
+checkCurrencyValue()
         return Result.success()
     }
 
+    private fun checkCurrencyValue(){
+        val service = DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(
+            CryptocurrencyModule()).build().gerCryptoService()
+        val currency = service.getCryptocurrency()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ it ->
+               Log.i("value work manager", it.cryptocurrencyList!!.get(0).getRate().toString())
+            }, { throwable ->
+                Crashlytics.logException(throwable)
+            })
+
+        subscriptions.add(currency)
+        Log.i("currency",currency.toString())
+       // displayNotification()
+    }
     private fun displayNotification() {
         Log.i("worker","background")
         var notificationId = 1
