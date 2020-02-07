@@ -1,9 +1,7 @@
 package com.karolapp.ideaappkt.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -80,15 +78,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_camera -> {
                 toolbar!!.setTitle("Exchange")
-                navController!!.popBackStack()
+                navController!!.navigate(R.id.homeFragment)
             }
             R.id.nav_details -> {
                 toolbar!!.setTitle("Historical data")
-                navController!!.navigate(R.id.action_homeFragment_to_detailsFragment)
+
+                navController!!.navigate(R.id.detailsFragment)
             }
             R.id.nav_alarms -> {
                 toolbar!!.setTitle("Alarms")
-                navController!!.navigate(R.id.action_homeFragment_to_alarmFragment)
+                navController!!.navigate(R.id.alarmFragment)
             }
             R.id.nav_share -> {
 
