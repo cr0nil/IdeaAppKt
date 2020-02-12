@@ -1,7 +1,10 @@
 package com.karolapp.ideaappkt.ui.view
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +22,9 @@ import com.karolapp.ideaappkt.ui.contract.AlarmContract
 
 
 class AlarmFragment : Fragment(), AlarmContract.View {
+    private val PREF_NAME = "alarms"
+    private val KEY_NAME = "switch"
+    lateinit var sharedPref: SharedPreferences
     private lateinit var fragmentAlarmBinding: FragmentAlarmBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +37,10 @@ class AlarmFragment : Fragment(), AlarmContract.View {
     ): View? {
         fragmentAlarmBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_alarm, container, false)
-
+        sharedPref = activity!!.getSharedPreferences(
+            PREF_NAME,
+            Context.MODE_PRIVATE
+        )
         val spinner: Spinner = fragmentAlarmBinding.coinSpinner
         val seekBar = fragmentAlarmBinding.seekBar
         fragmentAlarmBinding.textView5.setText((seekBar.progress).toString())
@@ -69,13 +78,21 @@ class AlarmFragment : Fragment(), AlarmContract.View {
 
     fun turnOnAlarm() {
         val activity: MainActivity = activity as MainActivity
-
+        val checked = sharedPref.getBoolean(KEY_NAME, false)
+        fragmentAlarmBinding.alarmSwitch.isChecked = checked
+        
         fragmentAlarmBinding.alarmSwitch.setOnCheckedChangeListener(object :
             CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+
+                val editor: SharedPreferences.Editor = sharedPref.edit()
+                editor.putBoolean(KEY_NAME, isChecked)
+                editor.commit()
+
                 if (isChecked) {
-                    fragmentAlarmBinding.alarmSwitch.setText("Turn on alarm  ")
                     activity.getValueInBackground()
+                    fragmentAlarmBinding.alarmSwitch.setText("Turn on alarm  ")
+
                 } else
                     fragmentAlarmBinding.alarmSwitch.setText("Turn off alarm  ")
             }

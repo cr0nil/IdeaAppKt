@@ -23,11 +23,13 @@ class WorkerManager(context: Context, workerParameters: WorkerParameters) :
     private val subscriptions = CompositeDisposable()
     val CHANNEL_ID = "1"
     override fun doWork(): Result {
-
+        Log.i("try", "s")
         return try {
-            checkCurrencyValue()
+         //   checkCurrencyValue()
+            Log.i("try", "s2")
             Result.success()
         } catch (ex: Exception) {
+            Log.e("exep", ex.toString())
             Crashlytics.logException(ex)
             Result.failure()
         }
@@ -35,7 +37,8 @@ class WorkerManager(context: Context, workerParameters: WorkerParameters) :
     }
 
     private fun checkCurrencyValue() {
-        lateinit var listCurrency: List<Cryptocurrency>
+        Log.i("to", "do")
+       // var listCurrency: List<Cryptocurrency> = emptyList()
         val service = DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(
             CryptocurrencyModule()
         ).build().gerCryptoService()
@@ -43,23 +46,23 @@ class WorkerManager(context: Context, workerParameters: WorkerParameters) :
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ it ->
-                Log.i("value work manager", it.cryptocurrencyList!!.get(0).getRate().toString())
-                listCurrency = it.cryptocurrencyList!!
+                Log.i("value work manager", it.cryptocurrencyList!!.toString())
+                //listCurrency = it.cryptocurrencyList!!
             }, { throwable ->
                 Crashlytics.logException(throwable)
             })
-
-        for (item in listCurrency) {
-
-            if (item.name!!.toLowerCase().contains("usd")) {
-//                if (item.getRate()!!.toDouble() < 9000)
-//                    displayNotification()
-//                else if (item.getRate()!!.toDouble() > 9000)
-//                    displayNotification()
-                Log.i("value work manager2", item.getRate().toString())
-            }
-        }
-
+//        if (!listCurrency.isEmpty()) {
+//            for (item in listCurrency) {
+//                Log.i("value work manager21", item.getRate().toString())
+//                if (item.name!!.toLowerCase().contains("usd")) {
+////                if (item.getRate()!!.toDouble() < 9000)
+////                    displayNotification()
+////                else if (item.getRate()!!.toDouble() > 9000)
+////                    displayNotification()
+//                    Log.i("value work manager2", item.getRate().toString())
+//                }
+//            }
+//        }
         subscriptions.add(currency)
     }
 
