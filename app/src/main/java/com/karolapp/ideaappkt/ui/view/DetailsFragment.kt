@@ -1,5 +1,6 @@
 package com.karolapp.ideaappkt.ui.view
 
+import android.app.ProgressDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,6 +39,7 @@ class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener 
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: DetailAdapter
     lateinit var chartL: LineChart
+    lateinit var progress : ProgressDialog
 
     init {
         CryptocurrenycyAplication.cryptocurrencyApplicationComponent.inject(this)
@@ -45,6 +47,7 @@ class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         recyclerAdapter = DetailAdapter()
         presenter.attach(this)
 
@@ -57,6 +60,11 @@ class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener 
     ): View? {
         fragmentDetailsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
+        progress = ProgressDialog(context)
+        progress.setTitle("Loading")
+        progress.setMessage("Wait while loading...")
+        progress.setCancelable(false) // disable dismiss by tapping outside of the dialog
+        progress.show()
         chartL = fragmentDetailsBinding.chart
         recyclerView = fragmentDetailsBinding.recyclerViewDetail
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -70,6 +78,7 @@ class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener 
         val currencyName = DetailsFragmentArgs.fromBundle(arguments!!).currencyName
         presenter.subscribe()
         presenter.getHistoricalData(currencyName)
+
 
         return fragmentDetailsBinding.root
     }
@@ -91,7 +100,7 @@ class DetailsFragment : Fragment(), DetailContract.View, OnChartGestureListener 
 
         setChart(data1)
         set1.notifyDataSetChanged()
-
+        progress.dismiss()
     }
 
     override fun onChartGestureStart(
