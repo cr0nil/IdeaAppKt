@@ -62,11 +62,9 @@ class HomeFragmentPresenter : HomeFragmentContract.Presenter {
     private fun getObserver(adapter: RecyclerViewAdapter): Observer<ItemHome> {
         return object : Observer<ItemHome> {
             override fun onSubscribe(d: Disposable) {
-                println("onSubscribe")
             }
 
             override fun onNext(userList: ItemHome) {
-                Log.i("on next", userList.iconsCurrency.toString())
                 view.loadDataSuccess(userList.cryptocurrency, userList.iconsCurrency, adapter)
 
             }
@@ -74,7 +72,6 @@ class HomeFragmentPresenter : HomeFragmentContract.Presenter {
             override fun onError(e: Throwable) {
                 if (e is HttpException) {
                     view.showErrorMessage("Limit -- Try again later")
-                    Log.e("error2", e.toString())
 
                 } else {
                     Crashlytics.logException(e)

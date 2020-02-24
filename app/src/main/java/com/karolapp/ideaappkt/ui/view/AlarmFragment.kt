@@ -4,7 +4,6 @@ package com.karolapp.ideaappkt.ui.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.karolapp.ideaappkt.R
 import com.karolapp.ideaappkt.databinding.FragmentAlarmBinding
 import com.karolapp.ideaappkt.ui.MainActivity
 import com.karolapp.ideaappkt.ui.contract.AlarmContract
+import kotlinx.android.synthetic.main.fragment_alarm.*
 
 
 class AlarmFragment : Fragment(), AlarmContract.View {
@@ -41,6 +41,7 @@ class AlarmFragment : Fragment(), AlarmContract.View {
             PREF_NAME,
             Context.MODE_PRIVATE
         )
+
         val spinner: Spinner = fragmentAlarmBinding.coinSpinner
         val seekBar = fragmentAlarmBinding.seekBar
         fragmentAlarmBinding.textView5.setText((seekBar.progress).toString())
@@ -51,7 +52,7 @@ class AlarmFragment : Fragment(), AlarmContract.View {
                 progress: Int,
                 fromUser: Boolean
             ) {
-                pval = (progress) as Float
+                pval = (progress).toFloat()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) { //write custom code to on start progress
@@ -71,7 +72,6 @@ class AlarmFragment : Fragment(), AlarmContract.View {
             spinner.adapter = adapter
         }
 
-
         turnOnAlarm()
         return fragmentAlarmBinding.root
     }
@@ -80,9 +80,12 @@ class AlarmFragment : Fragment(), AlarmContract.View {
         val activity: MainActivity = activity as MainActivity
         val checked = sharedPref.getBoolean(KEY_NAME, false)
         fragmentAlarmBinding.alarmSwitch.isChecked = checked
-        
+
+
+
         fragmentAlarmBinding.alarmSwitch.setOnCheckedChangeListener(object :
             CompoundButton.OnCheckedChangeListener {
+
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
 
                 val editor: SharedPreferences.Editor = sharedPref.edit()
@@ -90,7 +93,11 @@ class AlarmFragment : Fragment(), AlarmContract.View {
                 editor.commit()
 
                 if (isChecked) {
-                    activity.getValueInBackground()
+                    activity.getValueInBackground(
+                        seekBar.progress.toDouble(),
+                        onRadioButtonClicked(),
+                        coin_spinner.selectedItem.toString()
+                    )
                     fragmentAlarmBinding.alarmSwitch.setText("Turn on alarm  ")
 
                 } else
@@ -100,5 +107,14 @@ class AlarmFragment : Fragment(), AlarmContract.View {
 
     }
 
+    fun onRadioButtonClicked(): String {
+        when (fragmentAlarmBinding.radiobtnGroup.checkedRadioButtonId) {
+            R.id.radio_pirates -> return "1"
+
+            R.id.radio_ninjas -> return "2"
+
+        }
+        return "1"
+    }
 
 }

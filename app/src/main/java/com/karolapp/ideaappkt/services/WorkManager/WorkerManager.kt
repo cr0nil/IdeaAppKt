@@ -20,25 +20,25 @@ import io.reactivex.schedulers.Schedulers
 
 class WorkerManager(context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
+    var listCurrency: List<Cryptocurrency> = emptyList()
     private val subscriptions = CompositeDisposable()
     val CHANNEL_ID = "1"
     override fun doWork(): Result {
-        Log.i("try", "s")
         return try {
-         //   checkCurrencyValue()
-            Log.i("try", "s2")
+            val boundRate =  inputData.getDouble("boundRate",9000.0)
+            val bound =  inputData.getString("bound")
+            val currency =  inputData.getString("currency")
+            checkCurrencyValue(boundRate,bound!!,currency!!)
             Result.success()
         } catch (ex: Exception) {
-            Log.e("exep", ex.toString())
             Crashlytics.logException(ex)
             Result.failure()
         }
 
     }
 
-    private fun checkCurrencyValue() {
-        Log.i("to", "do")
-       // var listCurrency: List<Cryptocurrency> = emptyList()
+    private fun checkCurrencyValue(boundRate : Double,bound: String,currency: String) {
+
         val service = DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(
             CryptocurrencyModule()
         ).build().gerCryptoService()
@@ -46,28 +46,30 @@ class WorkerManager(context: Context, workerParameters: WorkerParameters) :
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ it ->
-                Log.i("value work manager", it.cryptocurrencyList!!.toString())
-                //listCurrency = it.cryptocurrencyList!!
+                listCurrency = it.cryptocurrencyList!!
+                if (!listCurrency.isEmpty()) {
+                    for (item in listCurrency) {
+                        Log.i("value work manager21", item.getRate().toString())
+                        if (item.name!!.toLowerCase().contains(currency)) {
+                            when(bound.toInt()){
+                                1->if (item.getRate()!!.toDouble() < boundRate)
+                                    displayNotification()
+                                2->if (item.getRate()!!.toDouble() > boundRate)
+                                    displayNotification()
+                            }
+
+                        }
+                    }
+                }
             }, { throwable ->
                 Crashlytics.logException(throwable)
             })
-//        if (!listCurrency.isEmpty()) {
-//            for (item in listCurrency) {
-//                Log.i("value work manager21", item.getRate().toString())
-//                if (item.name!!.toLowerCase().contains("usd")) {
-////                if (item.getRate()!!.toDouble() < 9000)
-////                    displayNotification()
-////                else if (item.getRate()!!.toDouble() > 9000)
-////                    displayNotification()
-//                    Log.i("value work manager2", item.getRate().toString())
-//                }
-//            }
-//        }
+
         subscriptions.add(currency)
     }
 
     private fun displayNotification() {
-        Log.i("worker", "background")
+
         var notificationId = 1
         var builder = NotificationCompat.Builder(this.applicationContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.notification_icon)

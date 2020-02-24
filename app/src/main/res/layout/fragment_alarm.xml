@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,57 +9,79 @@
                 type="com.karolapp.ideaappkt.ui.view.AlarmFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/darkBackground"
+            android:orientation="vertical"
             tools:context=".ui.view.AlarmFragment">
 
         <Spinner
                 android:id="@+id/coin_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
+                android:layout_marginBottom="20dp"
                 android:background="@color/darkBackground"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textAlignment="center" />
 
-        <SeekBar
-                android:id="@+id/seekBar"
+        <RadioGroup
+                android:id="@+id/radiobtn_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="15000"
-                android:progress="50"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coin_spinner" />
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <RadioButton
+                    android:id="@+id/radio_pirates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:buttonTint="@color/fontGoldColor"
+                    android:checked="true"
+                    android:shadowColor="#008F2929"
+                    android:text="value > then "
+                    android:textColor="@color/fontGoldColor"
+                    android:textColorHint="#FFEB3B" />
+
+            <RadioButton
+                    android:id="@+id/radio_ninjas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:buttonTint="@color/fontGoldColor"
+                    android:outlineAmbientShadowColor="@color/fontGoldColor"
+                    android:text="value &lt; then"
+                    android:textColor="@color/fontGoldColor"
+                    android:textColorHighlight="@color/fontGoldColor"
+                    android:textColorHint="@color/fontGoldColor" />
+        </RadioGroup>
 
         <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="20dp"
                 android:text="TextView"
-                android:textColor="@color/fontGoldColor"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coin_spinner" />
+                android:textColor="@color/fontGoldColor" />
+
+        <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:max="15000"
+                android:progress="50" />
+
 
         <Switch
                 android:id="@+id/alarm_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:text="Turn off alarm   "
-                android:textColor="@color/fontGoldColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+                android:textColor="@color/fontGoldColor" />
 
-
-        <!-- TODO: Update blank fragment layout -->
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

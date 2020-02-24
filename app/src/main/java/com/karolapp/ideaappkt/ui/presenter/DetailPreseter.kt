@@ -1,7 +1,6 @@
 package com.karolapp.ideaappkt.ui.presenter
 
 import android.graphics.Color
-import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
@@ -41,7 +40,6 @@ class DetailPreseter : DetailContract.Presenter {
         val service =
             DaggerCryptocurrencyComponent.builder().cryptocurrencyModule(CryptocurrencyModule())
                 .build()
-        Log.i("tututu", base_id)
 
         var subscribe = service.gerCryptoService().getHistoricalData(base_id)
             .subscribeOn(Schedulers.io())
@@ -58,7 +56,6 @@ class DetailPreseter : DetailContract.Presenter {
 
     fun dataSetToChart(historicalData1: List<HistoricalData>): LineDataSet {
         var i = 0
-        Log.i("datga", historicalData1.size.toString())
         var inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         var date: Long?
         val values: ArrayList<Entry> = ArrayList()
@@ -101,7 +98,6 @@ class DetailPreseter : DetailContract.Presenter {
 class MyYAxisValueFormatter : IAxisValueFormatter {
     override fun getFormattedValue(value: Float, axis: AxisBase?): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        Log.i("time data",dateFormat.toString())
         return dateFormat.format(value.toLong())
     }
 
